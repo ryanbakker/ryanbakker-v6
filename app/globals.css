@@ -124,10 +124,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground bg-transparent;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth snap-y snap-proximity;
+  }
+
+  html.bg-pixel-hearts {
+    background-color: #000000 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6h1v-1h2v1h1v-1h2v1h1v2h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1z' fill='%23a855f7'/%3E%3C/svg%3E") !important;
+    background-repeat: repeat !important;
+    background-attachment: fixed !important;
+    background-size: 48px 48px !important;
+    image-rendering: pixelated;
   }
 
   .radial-blue {
@@ -145,6 +154,14 @@
   .radial-red {
     @apply bg-radial-[at_35%_35%] from-[#351011] via-[#250A0B] via-80% to-[#250A0B];
   }
+
+  .radial-grey {
+    @apply bg-radial-[at_35%_35%] from-[#EEEDF6] via-[#D9D6E7] via-80% to-[#BBB9C7];
+  }
+
+  .radial-lavendar {
+    @apply bg-radial-[at_35%_35%] from-[#EAE3FA] via-[#cdd3e0] via-100% to-[#CDD3E0];
+  }
 }
 
 @layer utilities {
@@ -157,7 +174,7 @@
   }
 
   .bento-cell {
-    @apply rounded-4xl p-5; /* Bumped padding slightly for breathing room */
+    @apply rounded-4xl p-5;
   }
   
   .bento-cell-img {
@@ -190,9 +207,5 @@
 
   .bento-cell-img:hover, .bento-cell-img-hero:hover, .bento-cell-img-sm:hover, .bento-cell-text:hover {
     @apply shadow-[0_35px_60px_-20px_rgba(255,180,130,0.2),0_15px_30px_-25px_rgba(255,150,110,0.25)];
-  }
-
-  .tech-stack-grid-cell {
-    @apply p-3 bg-indigo-600;
   }
 }

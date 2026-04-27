@@ -288,3 +288,135 @@ export const PROJECT_CATALOGUE_DATA = [
     link: "/projects/",
   },
 ];
+
+export const INSPIRATION_DATA = [
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Design Principles",
+    description: "Visual exploration",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Motion Studies",
+    description: "Animation inspiration",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Type Specimens",
+    description: "Font pairings",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Color Theory",
+    description: "Palette research",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "UX Research",
+    description: "User flow patterns",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Identity Design",
+    description: "Branding showcase",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Architechture",
+    description: "Spatial inspiration",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Photography",
+    description: "Composition styles",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "UX Research",
+    description: "User flow patterns",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Identity Design",
+    description: "Branding showcase",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Architechture",
+    description: "Spatial inspiration",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Photography",
+    description: "Composition styles",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "Typography",
+    description: "Grid systems",
+    link: "#",
+  },
+  {
+    image: "/projects/previews/test_one.jpg",
+    title: "3D Rendering",
+    description: "Lighting studies",
+    link: "#",
+  },
+];
+
+export const EDUCATION_DATA = [
+  {
+    title: "Bachelor of Computer & Information Sciences",
+    years: "2025 — Present",
+    focus: "Human-Computer Interaction",
+    subjects: {
+      primary: "Software Development",
+      secondary: "Artifical Intelligence",
+      tertiary: "Business & Psychology",
+    },
+    mission:
+      "With two diplomas and various experience working in web development, I return with a fresh start. While in an AI bubble, my course selection respects the need for in-depth learning of artificial intelligence. While focusing on all aspects that are important. Including mission-critical code, human-computer psychology, and the importance of project management.",
+    logo: "/logos/aut.svg",
+    provider: "AUT",
+  },
+  {
+    title: "Diploma in Web Design & Production",
+    years: "2021 — 2022",
+    focus: "Full-Stack Development",
+    subjects: {
+      primary: "Web App Development",
+      secondary: "UX/UX Research & Design",
+      tertiary: "Website Deployment",
+    },
+    mission:
+      "During this diploma, I studied 4 key topics - UI/UX Design & Development, Advanced Website Design, React.js Web App Development, and WordPress Development with HTML, CSS, and PHP. This gave me the step up from my level 5 diploma, where I wanted to direct my focus on web development. This diploma also lead me to my treasured experience at The Web Guys.",
+    logo: "/logos/yoobee.svg",
+    provider: "Education Provider",
+  },
+  {
+    title: "Diploma in Digital Design",
+    years: "2020",
+    focus: "Visual Communication",
+    subjects: {
+      primary: "Graphic Design",
+      secondary: "Web Development",
+      tertiary: "Product Design",
+    },
+    mission:
+      "This diploma encompassed all things design, from creating pamphlets and product packaging, to creating entire websites using WordPress. I have since looked at this course as the foundation for my experience and knowledge today. It introduced me to a professional approach to web development, as well as working and leading a project-based team.",
+    logo: "/logos/yoobee.svg",
+    provider: "Design School",
+  },
+];

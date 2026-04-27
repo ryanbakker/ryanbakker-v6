@@ -37,6 +37,7 @@ export default function RootLayout({
         crimsonPro.variable,
         "font-sans",
         inter.variable,
+        "bg-pixel-hearts"
       )}
       suppressHydrationWarning
     >
