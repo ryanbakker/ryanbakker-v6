@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent, FocusEvent, FormEvent } from "react";
 import { Button } from "./ui/button";
 
 export default function ContactSection() {
@@ -22,20 +22,24 @@ export default function ContactSection() {
     message: false,
   });
 
-  // Handle typing
-  const handleChange = (e) => {
+  // Handle typing - Typed for both Input and Textarea
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle clicking away from an input
-  const handleBlur = (e) => {
+  // Handle clicking away from an input - Typed for both Input and Textarea
+  const handleBlur = (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
   // Simple regex to check for a valid email structure
-  const isValidEmail = (email) => {
+  const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
@@ -68,7 +72,8 @@ export default function ContactSection() {
     formData.subject.trim() !== "" &&
     formData.message.trim() !== "";
 
-  const handleSubmit = async (e) => {
+  // Typed as a Form Submission Event
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("Sending...");
 
@@ -101,12 +106,15 @@ export default function ContactSection() {
           subject: false,
           message: false,
         });
-        e.target.reset();
+
+        // Reset the actual form DOM element
+        (e.target as HTMLFormElement).reset();
       } else {
         setStatus("Something went wrong. Please try again.");
       }
     } catch (error) {
       setStatus("Error sending message.");
+      console.error(error);
     }
   };
 
@@ -299,7 +307,6 @@ export default function ContactSection() {
           </div>
 
           {/* Form Elements */}
-          {/* Added noValidate to stop the browser's default ugly tooltip popups */}
           <form
             onSubmit={handleSubmit}
             noValidate
