@@ -34,6 +34,7 @@ export default function Home() {
       <InspoSection />
       <SocialSection />
 
+      <div className="h-20 bg-neutral-950" />
       <div className="snap-end">
         <Footer />
       </div>
