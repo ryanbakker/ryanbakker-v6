@@ -36,7 +36,10 @@ function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
   });
 
   return (
-    <section className="section-parent z-0 bg-[#FFF4EB] relative py-24 md:py-32 overflow-visible">
+    <section
+      id="continue"
+      className="section-parent z-0 bg-[#FFF4EB] relative py-24 md:py-32 overflow-visible"
+    >
       {/* TOP DIVIDER */}
       <svg
         viewBox="0 -150 1440 450"

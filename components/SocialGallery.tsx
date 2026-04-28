@@ -50,7 +50,7 @@ function SocialGallery() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* GitHub Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] shadow-xl">
+          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyPurple className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -68,7 +68,7 @@ function SocialGallery() {
                   />
                 </svg>
 
-                <h5 className="font-bold text-2xl uppercase">
+                <h5 className="font-bold text-2xl uppercase text-white">
                   My Developer Personality
                 </h5>
 
@@ -86,7 +86,7 @@ function SocialGallery() {
           </div>
 
           {/* LinkedIn Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] shadow-xl">
+          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyBlue className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -104,7 +104,7 @@ function SocialGallery() {
                   />
                 </svg>
 
-                <h5 className="font-bold text-2xl uppercase">
+                <h5 className="font-bold text-2xl uppercase text-white">
                   My corporate Personality
                 </h5>
 
@@ -122,7 +122,7 @@ function SocialGallery() {
           </div>
 
           {/* Instagram Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] shadow-xl">
+          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyPink className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -140,7 +140,7 @@ function SocialGallery() {
                   />
                 </svg>
 
-                <h5 className="font-bold text-2xl uppercase">
+                <h5 className="font-bold text-2xl uppercase text-white">
                   My Photographer Personality
                 </h5>
 
@@ -158,7 +158,7 @@ function SocialGallery() {
           </div>
 
           {/* Spotify Card (Full Width) */}
-          <div className="relative md:col-span-3 w-full h-full group overflow-hidden rounded-[30px] border border-[#1BA04A]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] shadow-xl">
+          <div className="relative md:col-span-3 w-full h-full group overflow-hidden rounded-[30px] border border-[#1BA04A]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyGreen className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 w-full h-full flex flex-row items-center justify-between p-6 md:p-10 -mt-1">
               <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 h-full w-full">
@@ -239,7 +239,7 @@ function SocialGallery() {
                   </svg>
 
                   <div className="w-full flex flex-col gap-5">
-                    <h5 className="font-bold text-2xl uppercase text-left mr-auto">
+                    <h5 className="font-bold text-2xl uppercase text-left mr-auto text-white">
                       My psychologically
                       <br />
                       revealing personality

@@ -69,6 +69,10 @@ export function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+/**
+ * ! Incorrectly sized instagram icon
+ **/
+
 export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...iconProps} {...props}>

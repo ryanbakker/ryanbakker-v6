@@ -1,3 +1,7 @@
+/**
+ * ! PREVENT BLURRING APPEARING OVER BLOB CONTENT WHEN TILTING TRIGGERED
+ **/
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -648,15 +652,19 @@ export function HeroSection() {
                   development and an emphasis on effective project management.
                 </p>
                 <div className="hidden md:flex flex-col lg:flex-row lg:items-center gap-2">
-                  <Button
-                    onPointerMove={onButtonPointerMove}
-                    className="w-fit bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 px-6 rounded-[7px] flex items-center gap-2 cursor-pointer transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
-                  >
-                    <GalleryVerticalEnd /> View Projects
-                  </Button>
-                  <Button variant="outline" className="w-fit cursor-pointer">
-                    <ChevronsDown /> Continue Reading
-                  </Button>
+                  <Link href="/projects">
+                    <Button
+                      onPointerMove={onButtonPointerMove}
+                      className="w-fit bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 px-6 rounded-[7px] flex items-center gap-2 cursor-pointer transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
+                    >
+                      <GalleryVerticalEnd /> View Projects
+                    </Button>
+                  </Link>
+                  <Link href="/#continue">
+                    <Button variant="phantom" className="w-fit cursor-pointer">
+                      <ChevronsDown /> Continue Reading
+                    </Button>
+                  </Link>
                 </div>
                 <div className="hidden md:flex flex-row items-center gap-4 mt-1">
                   {socialLinks.map(({ href, label, Icon }) => (
@@ -676,6 +684,11 @@ export function HeroSection() {
             </div>
           </TiltLayer>
         </div>
+
+        {/**
+        /**
+         * ! Add same glow effect from main blob on hover to each of the slices on hover
+         **/}
 
         <div className="max-w-[55vw] md:max-w-[325px] w-full ml-auto mr-[8%] -mt-[28%] md:mt-0 md:mx-auto z-30">
           <TiltLayer
@@ -731,20 +744,24 @@ export function HeroSection() {
           className="mt-6 w-full flex md:hidden flex-col items-center gap-5"
         >
           <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-            <Button
-              size="lg"
-              onPointerMove={onButtonPointerMove}
-              className="w-full bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 rounded-[7px] flex items-center gap-2 cursor-pointer px-10 transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
-            >
-              <GalleryVerticalEnd /> View Projects
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full cursor-pointer px-10"
-            >
-              <ChevronsDown /> Continue Reading
-            </Button>
+            <Link href="/projects">
+              <Button
+                size="lg"
+                onPointerMove={onButtonPointerMove}
+                className="w-full bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 rounded-[7px] flex items-center gap-2 cursor-pointer px-10 transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
+              >
+                <GalleryVerticalEnd /> View Projects
+              </Button>
+            </Link>
+            <Link href="/#continue">
+              <Button
+                size="lg"
+                variant="phantom"
+                className="w-full cursor-pointer px-10"
+              >
+                <ChevronsDown /> Continue Reading
+              </Button>
+            </Link>
           </div>
           <div className="flex md:hidden flex-row items-center gap-4 mt-1 mb-8">
             {socialLinks.map(({ href, label, Icon }) => (
