@@ -104,26 +104,26 @@ function EducationSection() {
 
   return (
     <section ref={containerRef} className="relative h-[300vh] bg-transparent">
-      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center pt-6 md:pt-0">
         <div className="section-child flex flex-col lg:flex-row justify-between items-center lg:gap-24 w-full h-full py-16">
           {/* Left Side: Content */}
           <div className="lg:max-w-[40%] pb-8 z-10">
             <h3 className="text-xl font-bold mb-3 uppercase tracking-tight text-white">
               Education
             </h3>
-            <p className="font-crimson italic text-xl leading-tight text-white">
+            <p className="font-crimson italic text-lg md:text-xl leading-tight text-white">
               &quot;The beautiful thing about learning is that no one
               <br />
               can take it away from you.&quot; &nbsp; &nbsp;{" "}
               <span> — B.B. King</span>
             </p>
 
-            <p className="font-inter mt-12 leading-tight tracking-tight font-light text-white/80">
+            <p className="font-inter mt-7 md:mt-12 text-sm md:text-base leading-tight tracking-tight font-light text-white/80">
               Learning is a core part of who I am. The most fundamental
               characteristic I love in a person is a sense of curiosity.
               Learning is a skill I&apos;m actively working on, including
               getting better at asking questions, and optimising the best
-              methods for me to learn effectively and efficiently.
+              methods for me to learn effectively.
               <br /> <br />
               Although I am returning to studies at twenty three, I&apos;m
               loving every second of it, and feel I value it more than I ever
@@ -132,7 +132,7 @@ function EducationSection() {
           </div>
 
           {/* Right Side: Animated Cards */}
-          <div className="w-full lg:w-[55%] flex flex-col gap-10">
+          <div className="w-full lg:w-[55%] flex flex-col gap-5 md:gap-10">
             <div className="relative w-full h-[450px] flex items-center justify-center overflow-visible">
               {EDUCATION_DATA.map((edu, index) => (
                 <StackingCard

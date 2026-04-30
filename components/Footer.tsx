@@ -4,7 +4,7 @@ function Footer() {
       <div className="section-child py-0! w-full">
         <svg
           viewBox="0 0 1004 200"
-          className="w-[101%] h-[40vh] min-h-[200px] -ml-3"
+          className="w-[101%] h-[40vh] min-h-[200px] -ml-1 md:-ml-3"
           preserveAspectRatio="none"
           aria-label="Ryan Bakker"
         >
@@ -21,7 +21,7 @@ function Footer() {
           </text>
         </svg>
 
-        <div className="flex justify-between w-full -mt-6">
+        <div className="flex flex-col md:flex-row items-center gap-1 justify-between w-full -mt-6">
           <span>In case you forgot ;)</span>
           <span>All Rights Reserved. 2026.</span>
         </div>

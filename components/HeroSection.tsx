@@ -460,7 +460,7 @@ export function HeroSection() {
               </svg>
             </TiltLayer>
           </div>
-          {/* Main hero shape + foreground copy share one tilt (text reads as on the blob) */}
+          {/* Main hero shape (Background Blob) */}
           <TiltLayer
             nx={tilt.nx}
             ny={tilt.ny}
@@ -473,10 +473,10 @@ export function HeroSection() {
                 ? "drop-shadow(0 0 45px rgba(200, 100, 255, 0.18))"
                 : "drop-shadow(0 0 0px rgba(200, 100, 255, 0))",
             }}
-            className="absolute inset-0 z-10"
+            className="absolute inset-0 z-10 pointer-events-none"
           >
             <svg
-              className="pointer-events-none absolute inset-0 z-0 w-full h-full"
+              className="absolute inset-0 z-0 w-full h-full"
               viewBox="0 0 695 607"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -598,8 +598,19 @@ export function HeroSection() {
                 </linearGradient>
               </defs>
             </svg>
+          </TiltLayer>
 
-            <div className="relative z-10 flex h-full w-full flex-col justify-center p-4 sm:p-10 text-white md:p-16">
+          {/* Foreground Copy (Independent Tilt) */}
+          <TiltLayer
+            nx={tilt.nx}
+            ny={tilt.ny}
+            tracking={tilt.tracking}
+            intensity={0.6}
+            isPaused={isPaused}
+            scaleOnPause={1.015}
+            className="absolute inset-0 z-20 pointer-events-none"
+          >
+            <div className="relative z-10 flex h-full w-full flex-col justify-center p-4 sm:p-10 text-white md:p-16 pointer-events-auto">
               <h6 className="text-white/80 font-bold text-sm md:text-base">
                 Hello, I&apos;m
               </h6>
@@ -743,7 +754,7 @@ export function HeroSection() {
           onPointerLeave={() => setIsPaused(false)}
           className="mt-6 w-full flex md:hidden flex-col items-center gap-5"
         >
-          <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full">
             <Link href="/projects">
               <Button
                 size="lg"
@@ -763,7 +774,7 @@ export function HeroSection() {
               </Button>
             </Link>
           </div>
-          <div className="flex md:hidden flex-row items-center gap-4 mt-1 mb-8">
+          <div className="flex md:hidden flex-row items-center gap-5 mt-3 mb-8 scale-135">
             {socialLinks.map(({ href, label, Icon }) => (
               <Link
                 key={href}

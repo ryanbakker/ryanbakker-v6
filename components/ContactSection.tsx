@@ -122,11 +122,11 @@ export default function ContactSection() {
     <section className="text-white py-8 md:py-12 px-6 md:px-12 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
       {/* Left Column: Text Content */}
       <div className="flex flex-col max-w-lg">
-        <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-6 uppercase">
+        <h2 className="text-4xl font-medium tracking-tight mb-6 uppercase">
           Let&apos;s build something{" "}
           <span className="font-extrabold">meaningful</span>
         </h2>
-        <p className="text-white/80 md:text-lg font-light mb-16 max-w-[500px]">
+        <p className="text-white/80 md:text-lg font-light mb-8 md:mb-16 max-w-[500px]">
           I&apos;m always looking to connect with teams working on software,
           human-computer interaction, intelligence, or high-impact digital
           products.
@@ -152,13 +152,13 @@ export default function ContactSection() {
       </div>
 
       {/* Right Column: Form Container */}
-      <div className="relative w-full max-w-md mx-auto lg:ml-auto lg:mr-0 mt-8 lg:mt-0">
+      <div className="relative w-full max-w-md mx-auto lg:ml-auto lg:mr-0 md:mt-8 lg:mt-0">
         {/* Status Badge */}
         <div className="absolute -top-3 right-4 bg-green-950/90 border border-green-800 text-white/90 text-xs px-3 py-1.5 rounded-full flex items-center gap-2 z-20 shadow-lg backdrop-blur-md">
           {/* Pulsing Dot */}
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-[105%] w-[105%] rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
           </span>
           Currently open for collaboration
         </div>
@@ -310,7 +310,7 @@ export default function ContactSection() {
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="relative z-10 flex flex-col gap-8 h-full p-8 md:p-10 pt-12"
+            className="relative z-10 flex flex-col gap-8 h-full p-6 md:p-10 pt-12"
           >
             <div className="relative flex flex-col">
               <input
@@ -370,7 +370,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Message"
-                rows={3}
+                rows={5}
                 className={`bg-transparent border-b pb-2 text-white placeholder:text-white/90 focus:outline-none transition-colors resize-none text-sm md:text-base ${errors.message ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"}`}
               ></textarea>
               {errors.message && (
@@ -380,13 +380,13 @@ export default function ContactSection() {
               )}
             </div>
 
-            <div className="mt-auto pt-6 flex flex-col items-end gap-3">
+            <div className="mt-auto pt-2 md:pt-6 flex flex-col items-end gap-3">
               <Button
                 type="submit"
                 variant="kinetic"
                 // Disable the button if the form isn't perfectly valid or if it's currently sending
                 disabled={!isFormValid || status === "Sending..."}
-                className="disabled:cursor-not-allowed disabled:opacity-50"
+                className="disabled:cursor-not-allowed disabled:opacity-50 w-full md:w-fit py-5"
               >
                 {status === "Sending..." ? "SENDING..." : "SUBMIT"}
               </Button>

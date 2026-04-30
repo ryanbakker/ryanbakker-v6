@@ -15,12 +15,7 @@ export default function Home() {
 
   return (
     <main className="w-full">
-      {/* Easter Egg Buffer (Top) */}
-      <div className="h-[20vh] pointer-events-none" />
-
-      <div className="snap-start">
-        <HeroSection />
-      </div>
+      <HeroSection />
 
       <AboutSection activeTechIndex={activeTechIndex} />
 
@@ -35,12 +30,7 @@ export default function Home() {
       <SocialSection />
 
       <div className="h-20 bg-neutral-950" />
-      <div className="snap-end">
-        <Footer />
-      </div>
-
-      {/* Easter Egg Buffer (Bottom) */}
-      <div className="h-[20vh] pointer-events-none" />
+      <Footer />
     </main>
   );
 }
