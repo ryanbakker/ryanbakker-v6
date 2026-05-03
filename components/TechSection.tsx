@@ -1,6 +1,6 @@
 "use client";
 
-import { STACK_DATA } from "@/constants";
+import { STACK_DATA, STACK_THEMES } from "@/constants";
 import TechCard from "./TechCard";
 
 function TechSection({
@@ -11,6 +11,7 @@ function TechSection({
   onToggle: (newIndex: number) => void;
 }) {
   const activeData = STACK_DATA[activeIndex];
+  const theme = STACK_THEMES[activeData.theme];
 
   const handleToggle = () => {
     onToggle((activeIndex + 1) % STACK_DATA.length);
@@ -18,7 +19,7 @@ function TechSection({
 
   return (
     <section
-      className={`relative w-full py-24 transition-colors duration-700 ease-in-out ${activeData.bgClass}`}
+      className={`relative w-full py-24 transition-colors duration-700 ease-in-out ${theme.bgClass}`}
     >
       <div className="w-full max-w-6xl mx-auto px-4">
         {/* RELATIVE WRAPPER for Blueprint lines and the Grid */}
@@ -34,7 +35,7 @@ function TechSection({
           <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 grid-rows-auto gap-5 md:gap-x-6 md:gap-y-8">
             {/* Cell 1: Header */}
             <div
-              className={`flex flex-col justify-center items-center font-bold text-3xl tracking-widest text-white transition-colors duration-500 ${activeData.cellClass} py-8 h-full min-h-[160px]`}
+              className={`flex flex-col justify-center items-center font-bold text-3xl tracking-widest text-white transition-colors duration-500 ${theme.cellClass} py-8 h-full min-h-[160px]`}
             >
               <h4 className="border-t-4 border-b-4 border-white py-1 text-center leading-tight flex flex-col items-center gap-1 font-black">
                 TECH <span className="h-1 w-[90%] bg-white rounded-none" />{" "}
@@ -47,12 +48,12 @@ function TechSection({
               <button
                 onClick={handleToggle}
                 className="flex items-center gap-4 bg-[#EBEBEB] w-full justify-between px-3 py-2.5 hover:bg-white transition-colors group cursor-pointer"
-                style={{ color: activeData.accentColor }}
+                style={{ color: theme.accentColor }}
               >
                 <span className="font-bold text-lg">{activeData.name}</span>
                 <span
                   className="text-white rounded-full p-1 transform group-hover:translate-x-1 transition-transform"
-                  style={{ backgroundColor: activeData.accentColor }}
+                  style={{ backgroundColor: theme.accentColor }}
                 >
                   <svg
                     width="20"
@@ -82,7 +83,7 @@ function TechSection({
               >
                 <TechCard
                   cardIndex={i}
-                  cellClass={activeData.cellClass}
+                  cellClass={theme.cellClass}
                   items={activeData.items}
                   icons={activeData.icons}
                 />

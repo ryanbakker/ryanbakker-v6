@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import AboutBento from "./AboutBento";
-import { STACK_DATA } from "@/constants";
+import { STACK_DATA, STACK_THEMES } from "@/constants";
 
 function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
   const { scrollY } = useScroll();
@@ -21,6 +21,7 @@ function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
   });
 
   const activeTechData = STACK_DATA[activeTechIndex];
+  const theme = STACK_THEMES[activeTechData.theme];
 
   // 2. THE PRONOUNCED BEND: 0.07 multiplier, max stretch of 150px, with a 90px base curve
   const topPath = useTransform(smoothVelocity, (v) => {
@@ -54,7 +55,7 @@ function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
       {/* BOTTOM DIVIDER */}
       <svg
         viewBox="0 -300 1440 450"
-        className={`w-full h-[100px] md:h-[150px] absolute -bottom-[32px] md:-bottom-[49px] left-0 overflow-visible z-50 pointer-events-none ${activeTechData.bgClass} bg-fixed transition-colors duration-700`}
+        className={`w-full h-[100px] md:h-[150px] absolute -bottom-[32px] md:-bottom-[49px] left-0 overflow-visible z-50 pointer-events-none ${theme.bgClass} bg-fixed transition-colors duration-700`}
         preserveAspectRatio="none"
       >
         <motion.path d={bottomPath} fill="#FFF4EB" />

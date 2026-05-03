@@ -109,6 +109,20 @@ function TiltLayer({
   );
 
   const s = isPaused ? scaleOnPause : 1;
+  const hasTilt = intensity > 0;
+  const hasScale = s !== 1;
+
+  const transform = hasTilt
+    ? `${buildTiltTransform(
+        nx,
+        ny,
+        rotateYMax,
+        rotateXMax,
+        perspectivePx,
+      )} scale(${s})`
+    : hasScale
+      ? `scale(${s})`
+      : "none";
 
   return (
     <div
@@ -116,19 +130,14 @@ function TiltLayer({
       className={className}
       style={{
         ...style,
-        transform: `${buildTiltTransform(
-          nx,
-          ny,
-          rotateYMax,
-          rotateXMax,
-          perspectivePx,
-        )} scale(${s})`,
-        transformStyle: "preserve-3d",
+        transform,
+        transformStyle: hasTilt ? "preserve-3d" : "flat",
         transition:
           tracking && !isPaused
             ? "transform 75ms linear, filter 420ms cubic-bezier(0.22, 1, 0.36, 1)"
             : "transform 420ms cubic-bezier(0.22, 1, 0.36, 1), filter 420ms cubic-bezier(0.22, 1, 0.36, 1)",
-        willChange: "transform, filter",
+        willChange: hasTilt ? "transform" : "auto",
+        WebkitFontSmoothing: "antialiased",
       }}
     >
       {children}
@@ -183,7 +192,7 @@ export function HeroSection() {
         nx={tilt.nx}
         ny={tilt.ny}
         tracking={tilt.tracking}
-        intensity={0.5}
+        intensity={0}
         className="flex flex-col md:flex-row w-full items-center justify-between md:gap-8"
       >
         <div
@@ -605,9 +614,9 @@ export function HeroSection() {
             nx={tilt.nx}
             ny={tilt.ny}
             tracking={tilt.tracking}
-            intensity={0.6}
+            intensity={0}
             isPaused={isPaused}
-            scaleOnPause={1.015}
+            scaleOnPause={1}
             className="absolute inset-0 z-20 pointer-events-none"
           >
             <div className="relative z-10 flex h-full w-full flex-col justify-center p-4 sm:p-10 text-white md:p-16 pointer-events-auto">

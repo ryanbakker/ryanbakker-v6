@@ -2,7 +2,7 @@ import sharp from "sharp";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { Projects } from "./collections/Projects";
+import { HomeContent } from "./collections/HomeContent";
 import { Media } from "./collections/Media";
 
 export default buildConfig({
@@ -10,7 +10,10 @@ export default buildConfig({
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Projects, Media],
+  collections: [
+    HomeContent,
+    Media,
+  ],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",

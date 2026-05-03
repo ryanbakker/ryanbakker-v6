@@ -6,12 +6,43 @@ export type SocialLink = {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
+export type StackTheme = "purple" | "green" | "red" | "blue" | "orange";
+
+export const STACK_THEMES: Record<
+  StackTheme,
+  { bgClass: string; cellClass: string; accentColor: string }
+> = {
+  purple: {
+    bgClass: "radial-purple",
+    cellClass: "bg-[#8e6bb3]/80",
+    accentColor: "#210a35",
+  },
+  green: {
+    bgClass: "radial-green",
+    cellClass: "bg-[#7fbe88]/80",
+    accentColor: "#09220e",
+  },
+  red: {
+    bgClass: "radial-red",
+    cellClass: "bg-[#ba7576]/80",
+    accentColor: "#250a0b",
+  },
+  blue: {
+    bgClass: "radial-blue",
+    cellClass: "bg-[#7ca5ba]/80",
+    accentColor: "#0a1d25",
+  },
+  orange: {
+    bgClass: "radial-orange",
+    cellClass: "bg-[#ba9d7c]/80",
+    accentColor: "#251b0a",
+  },
+};
+
 export type StackItem = {
   id: string;
   name: string;
-  bgClass: string;
-  cellClass: string;
-  accentColor: string;
+  theme: StackTheme;
   items: string[];
   icons: ComponentType<SVGProps<SVGSVGElement>>[];
 };
@@ -332,27 +363,21 @@ export const STACK_DATA: StackItem[] = [
   {
     id: "web",
     name: "Web / Dev",
-    bgClass: "radial-purple",
-    cellClass: "bg-[#8e6bb3]/80", // Lighter Purple
-    accentColor: "#210a35",
+    theme: "purple",
     items: ["Next.js", "Typescript", "Tailwind CSS"],
     icons: [ReactIcon, TypeScriptIcon, TailwindIcon],
   },
   {
     id: "creative",
     name: "Creative",
-    bgClass: "radial-green",
-    cellClass: "bg-[#7fbe88]/80", // Lighter Green
-    accentColor: "#09220e",
+    theme: "green",
     items: ["Figma", "Adobe CC", "DaVinci Resolve"],
     icons: [FigmaIcon, AdobeIcon, DavinciIcon],
   },
   {
     id: "productivity",
     name: "Productivity",
-    bgClass: "radial-red",
-    cellClass: "bg-[#ba7576]/80", // Lighter Red
-    accentColor: "#250a0b",
+    theme: "red",
     items: ["Obsidian", "Monday", "GitHub"],
     icons: [ObsidianIcon, MondayIcon, GitHubStackIcon],
   },
