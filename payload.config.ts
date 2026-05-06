@@ -4,16 +4,15 @@ import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { HomeContent } from "./collections/HomeContent";
 import { Media } from "./collections/Media";
+import { Projects } from "./collections/Projects";
+import { ProjectsContent } from "./collections/ProjectsContent";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [
-    HomeContent,
-    Media,
-  ],
+  collections: [HomeContent, Projects, ProjectsContent, Media],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",

@@ -10,8 +10,14 @@ interface EducationCardProps {
     secondary: string;
     tertiary: string;
   };
-  mission: string;
-  logo: string;
+  mission: string | React.ReactNode;
+  logo:
+    | string
+    | {
+        url?: string | null;
+        alt?: string | null;
+      }
+    | null;
   provider: string;
   progress?: number;
 }
@@ -32,6 +38,8 @@ function EducationCard({
     transform: `translateY(${(1 - progress) * 15}px)`,
     willChange: "opacity, transform",
   };
+
+  const logoUrl = typeof logo === "object" ? logo?.url : logo;
 
   return (
     <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-[400px] text-[#090B23]">
@@ -56,13 +64,15 @@ function EducationCard({
           {/* Spacer and floated logo for mobile only */}
           <div className="float-right h-16 w-0 md:hidden" />
           <div className="float-right clear-right ml-4 mb-2 pointer-events-none md:hidden">
-            <Image
-              src={logo}
-              height={80}
-              width={120}
-              alt={provider}
-              className="object-contain translate-y-2"
-            />
+            {logoUrl && (
+              <Image
+                src={logoUrl}
+                height={80}
+                width={120}
+                alt={provider}
+                className="object-contain translate-y-2"
+              />
+            )}
           </div>
           {mission}
         </div>
@@ -76,13 +86,15 @@ function EducationCard({
           transform: `scale(${0.8 + 0.2 * progress}) translateY(${(1 - progress) * 10}px)`,
         }}
       >
-        <Image
-          src={logo}
-          height={80}
-          width={120}
-          alt={provider}
-          className="object-contain"
-        />
+        {logoUrl && (
+          <Image
+            src={logoUrl}
+            height={80}
+            width={120}
+            alt={provider}
+            className="object-contain"
+          />
+        )}
       </div>
     </div>
   );

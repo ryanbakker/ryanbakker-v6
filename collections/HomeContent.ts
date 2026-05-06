@@ -1,18 +1,10 @@
 import { CollectionConfig } from "payload";
-import {
-  BoldFeature,
-  HeadingFeature,
-  ItalicFeature,
-  LinkFeature,
-  OrderedListFeature,
-  UnorderedListFeature,
-  lexicalEditor,
-} from "@payloadcms/richtext-lexical";
 
 export const HomeContent: CollectionConfig = {
   slug: "home-content",
   admin: {
     useAsTitle: "title",
+    defaultColumns: ["title", "updatedAt"],
   },
   fields: [
     {
@@ -65,9 +57,8 @@ export const HomeContent: CollectionConfig = {
               required: true,
             },
             {
-              name: "aboutDeveloperImage",
-              type: "upload",
-              relationTo: "media",
+              name: "aboutStudentDescription",
+              type: "textarea",
               required: true,
             },
             {
@@ -76,32 +67,30 @@ export const HomeContent: CollectionConfig = {
               required: true,
             },
             {
-              name: "aboutSelfDevImage",
-              type: "upload",
-              relationTo: "media",
+              name: "aboutCreativeDescription",
+              type: "textarea",
               required: true,
             },
             {
-              name: "aboutStudentDescription",
-              type: "textarea",
+              name: "aboutDeveloperImage",
+              type: "upload",
+              relationTo: "media",
               required: true,
+              label: "Large Image Left",
             },
             {
               name: "aboutStudentImage",
               type: "upload",
               relationTo: "media",
               required: true,
-            },
-            {
-              name: "aboutCreativeDescription",
-              type: "textarea",
-              required: true,
+              label: "Large Image Middle",
             },
             {
               name: "aboutCreativeImage",
               type: "upload",
               relationTo: "media",
               required: true,
+              label: "Large Image Right",
             },
             {
               name: "aboutSmallImage",
@@ -160,92 +149,17 @@ export const HomeContent: CollectionConfig = {
             },
           ],
         },
-        {
-          label: "Projects",
-          fields: [
-            {
-              name: "projects",
-              type: "array",
-              fields: [
-                {
-                  name: "title",
-                  type: "text",
-                  required: true,
-                },
-                {
-                  name: "subtitle",
-                  type: "text",
-                },
-                {
-                  name: "projectContent",
-                  type: "richText",
-                  label: "Project Content (written)",
-                  required: true,
-                  editor: lexicalEditor({
-                    features: ({ defaultFeatures }) => [
-                      ...defaultFeatures,
-                      HeadingFeature({
-                        enabledHeadingSizes: ["h2", "h3", "h4"],
-                      }),
-                      BoldFeature(),
-                      ItalicFeature(),
-                      LinkFeature({}),
-                      UnorderedListFeature(),
-                      OrderedListFeature(),
-                    ],
-                  }),
-                },
-                {
-                  name: "technologies",
-                  type: "array",
-                  label: "Technologies",
-                  fields: [
-                    {
-                      name: "label",
-                      type: "text",
-                      required: true,
-                    },
-                  ],
-                },
-                {
-                  name: "images",
-                  type: "array",
-                  label: "Images",
-                  fields: [
-                    {
-                      name: "image",
-                      type: "upload",
-                      relationTo: "media",
-                      required: true,
-                    },
-                  ],
-                },
-                {
-                  name: "externalLinks",
-                  type: "group",
-                  label: "External Links",
-                  fields: [
-                    {
-                      name: "githubRepo",
-                      type: "text",
-                      label: "GitHub Repo",
-                    },
-                    {
-                      name: "liveBuild",
-                      type: "text",
-                      label: "Live Build",
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
+
         {
           label: "Education",
           fields: [
             {
               name: "educationQuote",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "educationQuoteAuthor",
               type: "text",
               required: true,
             },

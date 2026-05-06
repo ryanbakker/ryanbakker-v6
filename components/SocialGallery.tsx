@@ -26,7 +26,13 @@ interface TopTrack {
   songUrl: string;
 }
 
-function SocialGallery() {
+export interface SocialCard {
+  platform: "github" | "linkedin" | "instagram" | "spotify";
+  title: string;
+  link: string;
+}
+
+function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
   const [topTrack, setTopTrack] = useState<TopTrack | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,6 +54,11 @@ function SocialGallery() {
     fetchTopTrack();
   }, []);
 
+  const githubCard = socialCards?.find((c) => c.platform === "github");
+  const linkedinCard = socialCards?.find((c) => c.platform === "linkedin");
+  const instagramCard = socialCards?.find((c) => c.platform === "instagram");
+  const spotifyCard = socialCards?.find((c) => c.platform === "spotify");
+
   return (
     <section className="section-parent py-16">
       <div className="section-child">
@@ -64,11 +75,11 @@ function SocialGallery() {
                 <GitHubLargeIcon className="ml-auto text-white" />
 
                 <h5 className="font-bold text-2xl uppercase text-white">
-                  My Developer Personality
+                  {githubCard?.title || "My Developer Personality"}
                 </h5>
 
                 <Link
-                  href="https://github.com/ryanbakker"
+                  href={githubCard?.link || "https://github.com/ryanbakker"}
                   target="_blank"
                   className="ml-auto"
                 >
@@ -88,11 +99,11 @@ function SocialGallery() {
                 <LinkedInLargeIcon className="ml-auto text-white" />
 
                 <h5 className="font-bold text-2xl uppercase text-white">
-                  My corporate Personality
+                  {linkedinCard?.title || "My corporate Personality"}
                 </h5>
 
                 <Link
-                  href="https://linkedin.com/in/ryan-bakker"
+                  href={linkedinCard?.link || "https://linkedin.com/in/ryan-bakker"}
                   target="_blank"
                   className="ml-auto"
                 >
@@ -112,11 +123,11 @@ function SocialGallery() {
                 <InstagramLargeIcon className="ml-auto text-white" />
 
                 <h5 className="font-bold text-2xl uppercase text-white">
-                  My Photographer Personality
+                  {instagramCard?.title || "My Photographer Personality"}
                 </h5>
 
                 <Link
-                  href="https://www.instagram.com/rm_bakker/"
+                  href={instagramCard?.link || "https://www.instagram.com/rm_bakker/"}
                   target="_blank"
                   className="ml-auto"
                 >
@@ -188,13 +199,11 @@ function SocialGallery() {
 
                   <div className="w-full flex flex-col gap-5">
                     <h5 className="font-bold text-xl md:text-2xl uppercase text-left mr-auto text-white mt-3 md:mt-0">
-                      My psychologically
-                      <br />
-                      revealing personality
+                      {spotifyCard?.title || "My psychologically\nrevealing personality"}
                     </h5>
 
                     <Link
-                      href="https://open.spotify.com/user/31cgbozvcwgbz5xhlpjogd32wiqe?si=55cfba08ec2d4bf0"
+                      href={spotifyCard?.link || "https://open.spotify.com/user/31cgbozvcwgbz5xhlpjogd32wiqe?si=55cfba08ec2d4bf0"}
                       target="_blank"
                       className="ml-auto w-full md:w-fit"
                     >

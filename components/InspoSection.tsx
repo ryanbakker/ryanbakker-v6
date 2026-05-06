@@ -1,21 +1,34 @@
 "use client";
 
-import { INSPIRATION_DATA } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-function InspoSection() {
+export interface Inspiration {
+  title: string;
+  description: string;
+  image:
+    | string
+    | {
+        url?: string | null;
+        alt?: string | null;
+      }
+    | null;
+  link: string;
+}
+
+function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const hasMore = INSPIRATION_DATA.length > 8;
+  const displayInspirations = inspirations || [];
+  const hasMore = displayInspirations.length > 8;
 
   // Items 1-7 are static
-  const staticItems = INSPIRATION_DATA.slice(0, 7);
+  const staticItems = displayInspirations.slice(0, 7);
   // Items from 8 onwards are dynamic
-  const dynamicItems = INSPIRATION_DATA.slice(7);
+  const dynamicItems = displayInspirations.slice(7);
 
   return (
     <section className="section-parent pt-18 pb-28 radial-lavendar overflow-hidden">
@@ -34,121 +47,135 @@ function InspoSection() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full"
           >
             {/* Always visible 7 items */}
-            {staticItems.map((item, index) => (
-              <li
-                key={`static-${index}`}
-                className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
-              >
-                <Link
-                  href={item.link}
-                  target="_blank"
-                  className="w-full h-full flex items-center justify-center"
-                >
-                  <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40" />
-                  </div>
-                  <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white rounded-full p-1.5">
-                    <svg
-                      width="14"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-black"
-                    >
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </div>
-                  <span className="relative z-10 text-6xl font-light text-neutral-400 group-hover:text-white transition-colors duration-500">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="absolute left-4 bottom-4 z-10 text-left">
-                    <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
-                      {item.title}
-                    </h5>
-                    <p className="text-xs text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
-                      {item.description}
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            ))}
+            {staticItems.map((item, index) => {
+              const imageUrl =
+                typeof item.image === "object" ? item.image?.url : item.image;
 
-            {/* Dynamic Items - Fade only, cascading effect */}
-            <AnimatePresence>
-              {isExpanded &&
-                dynamicItems.map((item, index) => (
-                  <motion.li
-                    key={`dynamic-${index}`}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: 1,
-                      transition: {
-                        delay: index * 0.04,
-                        duration: 0.4,
-                      },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      transition: { duration: 0.2 },
-                    }}
-                    className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
+              return (
+                <li
+                  key={`static-${index}`}
+                  className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
+                >
+                  <Link
+                    href={item.link}
+                    target="_blank"
+                    className="w-full h-full flex items-center justify-center"
                   >
-                    <Link
-                      href={item.link}
-                      className="w-full h-full flex items-center justify-center"
-                    >
-                      <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                      {imageUrl && (
                         <Image
-                          src={item.image}
+                          src={imageUrl}
                           alt={item.title}
                           fill
                           sizes="(max-width: 768px) 100vw, 25vw"
                           className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-black/40" />
-                      </div>
-                      <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white rounded-full p-1.5">
-                        <svg
-                          width="14"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="text-black"
-                        >
-                          <line x1="7" y1="17" x2="17" y2="7"></line>
-                          <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
-                      </div>
-                      <span className="relative z-10 text-6xl font-light text-neutral-400 group-hover:text-white transition-colors duration-500">
-                        {String(index + 8).padStart(2, "0")}
-                      </span>
-                      <div className="absolute left-4 bottom-4 z-10 text-left">
-                        <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
-                          {item.title}
-                        </h5>
-                        <p className="text-xs text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
-                          {item.description}
-                        </p>
-                      </div>
-                    </Link>
-                  </motion.li>
-                ))}
+                      )}
+                      <div className="absolute inset-0 bg-black/40" />
+                    </div>
+                    <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white rounded-full p-1.5">
+                      <svg
+                        width="14"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-black"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </div>
+                    <span className="relative z-10 text-6xl font-light text-neutral-400 group-hover:text-white transition-colors duration-500">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="absolute left-4 bottom-4 z-10 text-left">
+                      <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
+                        {item.title}
+                      </h5>
+                      <p className="text-xs text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+
+            {/* Dynamic Items - Fade only, cascading effect */}
+            <AnimatePresence>
+              {isExpanded &&
+                dynamicItems.map((item, index) => {
+                  const imageUrl =
+                    typeof item.image === "object" ? item.image?.url : item.image;
+
+                  return (
+                    <motion.li
+                      key={`dynamic-${index}`}
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: 1,
+                        transition: {
+                          delay: index * 0.04,
+                          duration: 0.4,
+                        },
+                      }}
+                      exit={{
+                        opacity: 0,
+                        transition: { duration: 0.2 },
+                      }}
+                      className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
+                    >
+                      <Link
+                        href={item.link}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                          {imageUrl && (
+                            <Image
+                              src={imageUrl}
+                              alt={item.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 25vw"
+                              className="object-cover"
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-black/40" />
+                        </div>
+                        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white rounded-full p-1.5">
+                          <svg
+                            width="14"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-black"
+                          >
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                          </svg>
+                        </div>
+                        <span className="relative z-10 text-6xl font-light text-neutral-400 group-hover:text-white transition-colors duration-500">
+                          {String(index + 8).padStart(2, "0")}
+                        </span>
+                        <div className="absolute left-4 bottom-4 z-10 text-left">
+                          <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
+                            {item.title}
+                          </h5>
+                          <p className="text-xs text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
+                            {item.description}
+                          </p>
+                        </div>
+                      </Link>
+                    </motion.li>
+                  );
+                })}
             </AnimatePresence>
 
             {/* Persistent Toggle Button - Translates directly down to bottom right */}

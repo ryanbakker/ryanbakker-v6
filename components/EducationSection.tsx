@@ -1,11 +1,27 @@
 "use client";
 
-import { EDUCATION_DATA } from "@/constants";
 import EducationCard from "./EducationCard";
 import { useRef, useState, useEffect } from "react";
 
+export interface EducationItem {
+  title: string;
+  completionYears: string;
+  focus: string;
+  providerLogo:
+    | string
+    | {
+        url?: string | null;
+        alt?: string | null;
+      }
+    | null;
+  primarySubject: string;
+  secondarySubject: string;
+  tertiarySubject: string;
+  mission: string | React.ReactNode;
+}
+
 interface StackingCardProps {
-  edu: (typeof EDUCATION_DATA)[0];
+  edu: EducationItem;
   index: number;
   total: number;
   progress: number;
@@ -21,7 +37,7 @@ function StackingCard({ edu, index, total, progress }: StackingCardProps) {
   // Progress 1.0 -> Card 3 fully visible
   // (Assuming 3 cards total)
 
-  const step = 1 / (total - 1);
+  const step = total > 1 ? 1 / (total - 1) : 1;
 
   // This card starts sliding in relative to the previous card's slot
   const start = (index - 1) * step;
@@ -70,16 +86,34 @@ function StackingCard({ edu, index, total, progress }: StackingCardProps) {
         <EducationCard
           index={index}
           progress={isFirst ? 1 : slideProgress}
-          {...edu}
+          title={edu.title}
+          years={edu.completionYears}
+          focus={edu.focus}
+          subjects={{
+            primary: edu.primarySubject,
+            secondary: edu.secondarySubject,
+            tertiary: edu.tertiarySubject,
+          }}
+          mission={edu.mission}
+          logo={edu.providerLogo}
+          provider={edu.title}
         />
       </div>
     </div>
   );
 }
 
-function EducationSection() {
+interface EducationSectionProps {
+  quote?: string | null;
+  bodyText?: string | React.ReactNode | null;
+  items?: EducationItem[] | null;
+}
+
+function EducationSection({ quote, bodyText, items }: EducationSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+
+  const educationItems = items || [];
 
   useEffect(() => {
     let rafId: number;
@@ -111,35 +145,26 @@ function EducationSection() {
             <h3 className="text-xl font-bold mb-3 uppercase tracking-tight text-white">
               Education
             </h3>
-            <p className="font-crimson italic text-lg md:text-xl leading-tight text-white">
-              &quot;The beautiful thing about learning is that no one
-              <br />
-              can take it away from you.&quot; &nbsp; &nbsp;{" "}
-              <span> — B.B. King</span>
-            </p>
+            {quote && (
+              <p className="font-crimson italic text-lg md:text-xl leading-tight text-white">
+                {quote}
+              </p>
+            )}
 
-            <p className="font-inter mt-7 md:mt-12 text-sm md:text-base leading-tight tracking-tight font-light text-white/80">
-              Learning is a core part of who I am. The most fundamental
-              characteristic I love in a person is a sense of curiosity.
-              Learning is a skill I&apos;m actively working on, including
-              getting better at asking questions, and optimising the best
-              methods for me to learn effectively.
-              <br /> <br />
-              Although I am returning to studies at twenty three, I&apos;m
-              loving every second of it, and feel I value it more than I ever
-              have in the past.
-            </p>
+            <div className="font-inter mt-7 md:mt-12 text-sm md:text-base leading-tight tracking-tight font-light text-white/80">
+              {bodyText}
+            </div>
           </div>
 
           {/* Right Side: Animated Cards */}
           <div className="w-full lg:w-[55%] flex flex-col gap-5 md:gap-10">
             <div className="relative w-full h-[450px] flex items-center justify-center overflow-visible">
-              {EDUCATION_DATA.map((edu, index) => (
+              {educationItems.map((edu, index) => (
                 <StackingCard
                   key={index}
                   edu={edu}
                   index={index}
-                  total={EDUCATION_DATA.length}
+                  total={educationItems.length}
                   progress={progress}
                 />
               ))}

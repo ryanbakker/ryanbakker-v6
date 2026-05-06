@@ -3,7 +3,17 @@
 import { useState, ChangeEvent, FocusEvent, FormEvent } from "react";
 import { Button } from "./ui/button";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  contactDescription?: string | null;
+  location?: string | null;
+  email?: string | null;
+}
+
+export default function ContactSection({
+  contactDescription,
+  location,
+  email,
+}: ContactSectionProps) {
   const [status, setStatus] = useState("");
 
   // Track the actual input values
@@ -126,10 +136,9 @@ export default function ContactSection() {
           Let&apos;s build something{" "}
           <span className="font-extrabold">meaningful</span>
         </h2>
-        <p className="text-white/80 md:text-lg font-light mb-8 md:mb-16 max-w-[500px]">
-          I&apos;m always looking to connect with teams working on software,
-          human-computer interaction, intelligence, or high-impact digital
-          products.
+        <p className="text-white/80 md:text-lg font-light mb-8 md:mb-16 max-w-125">
+          {contactDescription ||
+            "I'm always looking to connect with teams working on software, human-computer interaction, intelligence, or high-impact digital products."}
         </p>
 
         <div>
@@ -137,15 +146,15 @@ export default function ContactSection() {
             The Quick & Simple
           </h3>
           <p className="mb-1 text-white/90 text-sm md:text-base">
-            Based in Auckland, New Zealand
+            Based in {location || "Auckland, New Zealand"}
           </p>
           <p className="text-white/90 text-sm md:text-base">
             Email me directly:{" "}
             <a
-              href="mailto:ryanbakker@outlook.co.nz?subject=Inquiry%20from%20Personal%20Site"
+              href={`mailto:${email || "ryanbakker@outlook.co.nz"}?subject=Inquiry%20from%20Personal%20Site`}
               className="underline underline-offset-7 hover:text-white/70 transition-colors"
             >
-              ryanbakker@outlook.co.nz
+              {email || "ryanbakker@outlook.co.nz"}
             </a>
           </p>
         </div>
@@ -164,7 +173,7 @@ export default function ContactSection() {
         </div>
 
         {/* Form Card */}
-        <div className="relative w-full min-h-[480px] flex flex-col justify-between">
+        <div className="relative w-full min-h-120 flex flex-col justify-between">
           {/* Background SVG Wrapper */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             <svg
