@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload";
+import type { CollectionConfig } from "payload";
 
 export const HomeContent: CollectionConfig = {
   slug: "home-content",

@@ -1,14 +1,40 @@
 import ProjectsGrid from "@/components/ProjectsGrid";
 import { Button } from "@/components/ui/button";
-import { Funnel, Undo2 } from "lucide-react";
+import { Undo2 } from "lucide-react";
 import Link from "next/link";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import { ProjectFilters } from "@/components/ProjectFilters";
 
-function ProjectsPage() {
+async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tags?: string }>;
+}) {
+  const { tags } = await searchParams;
+  const activeTags = tags ? tags.split(",").filter(Boolean) : [];
+
+  const payload = await getPayload({ config });
+  const { docs: projects } = await payload.find({
+    collection: "projects",
+    depth: 0, // We only need tags, no need for deep fetch
+    limit: 1000,
+  });
+
+  // Extract all unique tags from all projects
+  const availableTags = Array.from(
+    new Set(
+      projects.flatMap(
+        (p) => p.tags?.map((t: { label: string }) => t.label) || [],
+      ),
+    ),
+  ).sort() as string[];
+
   return (
     <main className="min-h-screen w-full overflow-x-hidden radial-purple text-white">
-      <section className="max-w-6xl flex flex-row justify-between items-end mx-auto mt-24">
+      <section className="max-w-6xl flex flex-col md:flex-row justify-between items-end mx-auto mt-24 gap-8">
         <div>
-          <h1 className="font-extrabold text-[60px] -tracking-[4%] uppercase leading-18">
+          <h1 className="font-extrabold text-[40px] md:text-[60px] tracking-[-4%] uppercase leading-tight md:leading-18">
             Project Archive
           </h1>
           <p className="font-light tracking-[2%] text-sm max-w-100">
@@ -18,35 +44,21 @@ function ProjectsPage() {
           </p>
         </div>
 
-        <div className="flex flex-row items-center gap-6 relative">
-          <Button size="lg">
-            <Funnel strokeWidth={3} />
-            &nbsp; Filter Projects
-          </Button>
+        <div className="flex flex-row items-center gap-4 md:gap-6 relative">
+          <ProjectFilters
+            availableTags={availableTags}
+            activeTags={activeTags}
+          />
           <Link href={"/"} passHref>
             <Button size="lg">
               Return to Base &nbsp;
               <Undo2 strokeWidth={3} />
             </Button>
           </Link>
-
-          {/* Project List Filters */}
-          <div className="absolute top-15 right-0 h-25 w-93 z-50 rounded-lg bg-neutral-900/95 border border-neutral-800">
-            <ul className="m-2">
-              <li>
-                <label
-                  htmlFor="#"
-                  className="py-1 px-2 text-sm bg-neutral-800 rounded-sm"
-                >
-                  Nextjs
-                </label>
-              </li>
-            </ul>
-          </div>
         </div>
       </section>
 
-      <ProjectsGrid />
+      <ProjectsGrid activeTags={activeTags} />
     </main>
   );
 }

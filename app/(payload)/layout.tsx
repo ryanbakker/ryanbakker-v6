@@ -8,6 +8,7 @@ import { handleServerFunctions, RootLayout } from "@payloadcms/next/layouts";
 import React from "react";
 
 import { importMap } from "./admin/importMap";
+// @ts-expect-error This is an error
 import "@payloadcms/next/css";
 import "./custom.scss";
 

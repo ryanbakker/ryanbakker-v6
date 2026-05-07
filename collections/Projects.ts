@@ -1,10 +1,28 @@
-import { CollectionConfig } from "payload";
-import { HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
+import { ThreeColumnBlock, TwoColumnBlock } from "@/lib/blocks";
+import {
+  AlignFeature,
+  BlockquoteFeature,
+  BlocksFeature,
+  BoldFeature,
+  CodeBlock,
+  FixedToolbarFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
+  InlineToolbarFeature,
+  ItalicFeature,
+  lexicalEditor,
+  LinkFeature,
+  OrderedListFeature,
+  UnderlineFeature,
+  UnorderedListFeature,
+  UploadFeature,
+} from "@payloadcms/richtext-lexical";
+import type { CollectionConfig } from "payload";
 
 export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
-    useAsTitle: "title",
+    useAsTitle: "title", // Now this will find the field correctly
     defaultColumns: ["title", "updatedAt", "isFeatured", "isHighlighted"],
   },
   fields: [
@@ -13,134 +31,180 @@ export const Projects: CollectionConfig = {
       type: "text",
       required: true,
       label: "Project Name",
+      // Keep it here at the top level, above the tabs
     },
     {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-      index: true,
-      admin: {
-        position: "sidebar",
-        description: "The URL-friendly identifier for this project.",
-      },
-    },
-    {
-      name: "subtitle",
-      type: "text",
-      label: "Subtitle",
-      admin: {
-        placeholder: "e.g., Modern Financial Management",
-      },
-    },
-    {
-      name: "description",
-      type: "textarea",
-      label: "Short Description",
-      admin: {
-        description: "A one or two sentence summary of the project.",
-        placeholder:
-          "e.g., The first step is knowing your numbers. Finova helps you track and visualise your financial habits.",
-      },
-    },
-    {
-      type: "row",
-      fields: [
+      type: "tabs",
+      tabs: [
         {
-          name: "isFeatured",
-          type: "checkbox",
-          label: "Feature Project",
-          defaultValue: false,
+          label: "Project Info",
+          fields: [
+            {
+              name: "projectBehaviour",
+              type: "group",
+              fields: [
+                {
+                  name: "slug",
+                  admin: {
+                    description: "e.g. 'ai-databases'",
+                  },
+                  type: "text",
+                  required: true,
+                  unique: true,
+                },
+                {
+                  name: "isFeatured",
+                  type: "checkbox",
+                  label: "Featured",
+                },
+                {
+                  name: "isHighlighted",
+                  type: "checkbox",
+                  label: "Highlighted",
+                },
+              ],
+            },
+            {
+              name: "projectDetails",
+              type: "group",
+              fields: [
+                {
+                  name: "subtitle",
+                  type: "text",
+                  label: "Subtitle",
+                },
+                {
+                  name: "description",
+                  type: "textarea",
+                  label: "Short Description",
+                },
+              ],
+            },
+            {
+              name: "externalLinks",
+              type: "group",
+              fields: [
+                { name: "githubRepo", type: "text" },
+                { name: "liveBuild", type: "text" },
+              ],
+            },
+            {
+              name: "images",
+              type: "array",
+              label: "Project Gallery",
+              fields: [
+                {
+                  name: "image",
+                  type: "upload",
+                  relationTo: "media",
+                  required: true,
+                },
+              ],
+            },
+            {
+              name: "tags",
+              type: "array",
+              label: "Project Tags",
+              fields: [{ name: "label", type: "text", required: true }],
+            },
+            {
+              name: "technologies",
+              type: "array",
+              label: "Tech Stack & Tools",
+              fields: [{ name: "label", type: "text", required: true }],
+            },
+          ],
+        },
+        {
+          label: "Article",
           admin: {
-            width: "50%",
+            width: "100%",
+            description:
+              "Optional long-form article, when added to project the page will convert from a Web Project, to a Block-Style Post.",
           },
-        },
-        {
-          name: "isHighlighted",
-          type: "checkbox",
-          label: "Highlight Project",
-          defaultValue: false,
-          admin: {
-            width: "50%",
-          },
-        },
-      ],
-    },
-    {
-      name: "tags",
-      type: "array",
-      label: "Project Tags",
-      labels: {
-        singular: "Tag",
-        plural: "Tags",
-      },
-      admin: {
-        description: "Used for filtering projects on the projects page.",
-      },
-      fields: [
-        {
-          name: "label",
-          type: "text",
-          required: true,
-        },
-      ],
-    },
-    {
-      name: "projectContent",
-      type: "richText",
-      label: "Project Brief",
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [
-          ...defaultFeatures,
-          HeadingFeature({
-            enabledHeadingSizes: ["h2", "h3", "h4"],
-          }),
-        ],
-      }),
-    },
-    {
-      name: "technologies",
-      type: "array",
-      label: "Tech Stack & Tools",
-      labels: {
-        singular: "Technology",
-        plural: "Technologies",
-      },
-      fields: [
-        {
-          name: "label",
-          type: "text",
-          required: true,
-        },
-      ],
-    },
-    {
-      name: "images",
-      type: "array",
-      label: "Project Gallery",
-      fields: [
-        {
-          name: "image",
-          type: "upload",
-          relationTo: "media",
-          required: true,
-        },
-      ],
-    },
-    {
-      name: "externalLinks",
-      type: "group",
-      label: "Resources & Links",
-      fields: [
-        {
-          name: "githubRepo",
-          type: "text",
-          label: "GitHub Repository",
-        },
-        {
-          name: "liveBuild",
-          type: "text",
-          label: "Live Demo / Document Link",
+          fields: [
+            {
+              name: "projectArticle",
+              type: "richText",
+              label: "Article Content",
+              editor: lexicalEditor({
+                features: [
+                  BoldFeature(),
+                  ItalicFeature(),
+                  UnderlineFeature(),
+                  FixedToolbarFeature(),
+                  InlineToolbarFeature(),
+                  AlignFeature(),
+                  HeadingFeature({
+                    enabledHeadingSizes: ["h3", "h4", "h5"],
+                  }),
+                  LinkFeature(),
+                  BlockquoteFeature(),
+                  HorizontalRuleFeature(),
+                  OrderedListFeature(),
+                  UnorderedListFeature(),
+                  // This adds the image support
+                  UploadFeature({
+                    collections: {
+                      media: {
+                        // This determines which fields are editable when an image is selected
+                        fields: [
+                          {
+                            name: "caption",
+                            type: "richText",
+                            editor: lexicalEditor(), // Simple editor for captions
+                          },
+                        ],
+                      },
+                    },
+                  }),
+                  BlocksFeature({
+                    blocks: [
+                      TwoColumnBlock,
+                      ThreeColumnBlock,
+                      {
+                        slug: "Call To Action",
+                        fields: [
+                          {
+                            name: "heading",
+                            type: "text",
+                            required: true,
+                          },
+                          {
+                            name: "link",
+                            type: "text",
+                          },
+                        ],
+                      },
+                      CodeBlock({
+                        defaultLanguage: "ts",
+                        languages: {
+                          plaintext: "Plain Text",
+                          js: "JavaScript",
+                          ts: "TypeScript",
+                          tsx: "TSX",
+                          jsx: "JSX",
+                        },
+                      }),
+                    ],
+
+                    inlineBlocks: [
+                      {
+                        slug: "highlight",
+                        fields: [
+                          {
+                            name: "highlightedText",
+                            type: "text",
+                            required: true,
+                          },
+                        ],
+                      },
+                    ],
+                  }),
+                ],
+              }),
+            },
+          ],
         },
       ],
     },

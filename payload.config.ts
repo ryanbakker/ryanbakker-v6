@@ -1,11 +1,12 @@
 import sharp from "sharp";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { HomeContent } from "./collections/HomeContent";
-import { Media } from "./collections/Media";
-import { Projects } from "./collections/Projects";
-import { ProjectsContent } from "./collections/ProjectsContent";
+import { HomeContent } from "./collections/HomeContent.ts";
+import { Media } from "./collections/Media.ts";
+import { Projects } from "./collections/Projects.ts";
+import { ProjectsContent } from "./collections/ProjectsContent.ts";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -22,6 +23,12 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || "", // Use the URI from Neon
     },
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: "ryanbakkerdev@gmail.com",
+    defaultFromName: "Ryan",
+    // By not providing transport options, it stays in "log to console" mode
+    // but satisfies Payload that an adapter is present.
   }),
   // If you want to resize images, crop, set focal point, etc.
   // make sure to install it and pass it to the config.
