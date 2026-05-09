@@ -5,21 +5,20 @@ import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { Media } from "@/payload-types";
 
 export interface Inspiration {
   title: string;
   description: string;
-  image:
-    | string
-    | {
-        url?: string | null;
-        alt?: string | null;
-      }
-    | null;
+  image: Media | number;
   link: string;
 }
 
-function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null }) {
+function InspoSection({
+  inspirations,
+}: {
+  inspirations?: Inspiration[] | null;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const displayInspirations = inspirations || [];
@@ -49,12 +48,14 @@ function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null })
             {/* Always visible 7 items */}
             {staticItems.map((item, index) => {
               const imageUrl =
-                typeof item.image === "object" ? item.image?.url : item.image;
+                typeof item.image === "object"
+                  ? item.image?.url
+                  : String(item.image);
 
               return (
                 <li
                   key={`static-${index}`}
-                  className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
+                  className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-62.5 lg:h-[25vh]"
                 >
                   <Link
                     href={item.link}
@@ -93,10 +94,10 @@ function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null })
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="absolute left-4 bottom-4 z-10 text-left">
-                      <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
+                      <h5 className="text-base font-bold text-neutral-900 group-hover:text-white transition-colors duration-500 tracking-tight">
                         {item.title}
                       </h5>
-                      <p className="text-xs text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
+                      <p className="text-xs tracking-tighter text-neutral-600 group-hover:text-neutral-300 transition-colors duration-500">
                         {item.description}
                       </p>
                     </div>
@@ -110,7 +111,9 @@ function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null })
               {isExpanded &&
                 dynamicItems.map((item, index) => {
                   const imageUrl =
-                    typeof item.image === "object" ? item.image?.url : item.image;
+                    typeof item.image === "object"
+                      ? item.image?.url
+                      : String(item.image);
 
                   return (
                     <motion.li
@@ -127,7 +130,7 @@ function InspoSection({ inspirations }: { inspirations?: Inspiration[] | null })
                         opacity: 0,
                         transition: { duration: 0.2 },
                       }}
-                      className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-[250px] lg:h-[25vh]"
+                      className="group relative overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-white/20 rounded-xl h-62.5 lg:h-[25vh]"
                     >
                       <Link
                         href={item.link}

@@ -138,7 +138,7 @@ export default function ContactSection({
   };
 
   return (
-    <section className="text-white py-8 md:py-12 px-6 md:px-12 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+    <section className="text-white py-8 md:py-12 px-3 md:px-12 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
       {/* Left Column: Text Content */}
       <div className="flex flex-col max-w-lg">
         <h2 className="text-4xl font-medium tracking-tight mb-6 uppercase">

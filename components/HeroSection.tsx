@@ -1,7 +1,3 @@
-/**
- * ! PREVENT BLURRING APPEARING OVER BLOB CONTENT WHEN TILTING TRIGGERED
- **/
-
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -145,10 +141,12 @@ function TiltLayer({
   );
 }
 
-export function HeroSection() {
+export function HeroSection({ data }: { data?: any }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [tilt, setTilt] = useState({ nx: 0, ny: 0, tracking: false });
   const [isPaused, setIsPaused] = useState(false);
+
+  const heroData = data.data;
 
   const onSectionPointerMove = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
@@ -198,11 +196,11 @@ export function HeroSection() {
         <div
           onPointerEnter={() => setIsPaused(true)}
           onPointerLeave={() => setIsPaused(false)}
-          className="@container relative w-full max-w-[695px] aspect-695/607 mt-10 md:mt-14 mb-10 mx-auto"
+          className="@container relative w-full max-w-173.75 aspect-695/607 mt-10 md:mt-14 mb-10 mx-auto"
         >
           {/* Decorative blobs sit under the main card + copy so the card can tilt as one layer */}
           {/* LAYER 2: Top-Left Blob (Middle Layer) */}
-          <div className="absolute -top-[7%] -left-[3%] md:-left-[6%] z-20 w-[33%]">
+          <div className="absolute top-[-7%] left-[-3%] md:left-[-6%] z-20 w-[33%]">
             <TiltLayer
               nx={tilt.nx}
               ny={tilt.ny}
@@ -630,7 +628,7 @@ export function HeroSection() {
 
               <div className="flex flex-row items-center gap-0.5 -mt-0.5 text-[clamp(1.4rem,4.75cqw,2.25rem)]">
                 <h2 className="font-black uppercase text-[#150024] bg-white w-fit">
-                  Digital Creative
+                  {heroData.heroCreativeLabel}
                 </h2>
 
                 <svg
@@ -667,9 +665,7 @@ export function HeroSection() {
 
               <div className="flex flex-col gap-5 mt-6">
                 <p className="text-xs md:text-sm text-[#F7E9FF] max-w-[88%] pb-10 md:pb-0">
-                  A BCIS student based in Auckland, NZ. With a focus on
-                  human-computer interaction, combined with robust software
-                  development and an emphasis on effective project management.
+                  {heroData.heroDescription}
                 </p>
                 <div className="hidden md:flex flex-col lg:flex-row lg:items-center gap-2">
                   <Link href="/projects">
@@ -714,23 +710,18 @@ export function HeroSection() {
           </TiltLayer>
         </div>
 
-        {/**
-        /**
-         * ! Add same glow effect from main blob on hover to each of the slices on hover
-         **/}
-
-        <div className="max-w-[55vw] md:max-w-[325px] w-full ml-auto mr-[8%] -mt-[28%] md:mt-0 md:mx-auto z-30">
+        <div className="max-w-[55vw] md:max-w-81.25 w-full ml-auto mr-[8%] mt-[-28%] md:mt-0 md:mx-auto z-30">
           <TiltLayer
             nx={tilt.nx}
             ny={tilt.ny}
             tracking={tilt.tracking}
             verticalTiltScale={TILT_VERTICAL_SCALE_NON_MAIN}
-            className="block -translate-x-[11%]"
+            className="block translate-x-[-11%]"
           >
             <Image
               src="/hero/hero-slice-top.svg"
-              height={500}
-              width={550}
+              height={800}
+              width={800}
               alt="Hero Slice Top"
             />
           </TiltLayer>
@@ -744,8 +735,8 @@ export function HeroSection() {
           >
             <Image
               src="/hero/hero-slice-mid.svg"
-              height={500}
-              width={550}
+              height={800}
+              width={800}
               alt="Hero Slice Middle"
             />
           </TiltLayer>
@@ -755,12 +746,12 @@ export function HeroSection() {
             ny={tilt.ny}
             tracking={tilt.tracking}
             verticalTiltScale={TILT_VERTICAL_SCALE_NON_MAIN}
-            className="block -translate-x-[6%]"
+            className="block translate-x-[-6%]"
           >
             <Image
               src="/hero/hero-slice-bot.svg"
-              height={500}
-              width={550}
+              height={800}
+              width={800}
               alt="Hero Slice Bottom"
             />
           </TiltLayer>
@@ -770,7 +761,7 @@ export function HeroSection() {
         <div
           onPointerEnter={() => setIsPaused(true)}
           onPointerLeave={() => setIsPaused(false)}
-          className="mt-6 w-full flex md:hidden flex-col items-center gap-5"
+          className="mt-6 w-full flex md:hidden flex-col items-center gap-5 pr-2"
         >
           <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full">
             <Link href="/projects">

@@ -173,6 +173,12 @@ export interface HomeContent {
     };
     [k: string]: unknown;
   };
+  extracurricularActivities?:
+    | {
+        activityName: string;
+        id?: string | null;
+      }[]
+    | null;
   educationItems?:
     | {
         title: string;
@@ -462,6 +468,12 @@ export interface HomeContentSelect<T extends boolean = true> {
   educationQuote?: T;
   educationQuoteAuthor?: T;
   educationBodyText?: T;
+  extracurricularActivities?:
+    | T
+    | {
+        activityName?: T;
+        id?: T;
+      };
   educationItems?:
     | T
     | {

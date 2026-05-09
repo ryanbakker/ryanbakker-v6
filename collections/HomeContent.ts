@@ -169,6 +169,18 @@ export const HomeContent: CollectionConfig = {
               required: true,
             },
             {
+              name: "extracurricularActivities",
+              type: "array",
+              label: "Extracurricular Activities",
+              fields: [
+                {
+                  name: "activityName",
+                  type: "text",
+                  required: true,
+                },
+              ],
+            },
+            {
               name: "educationItems",
               type: "array",
               label: "Education Items",

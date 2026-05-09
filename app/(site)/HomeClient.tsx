@@ -5,14 +5,14 @@ import { HeroSection } from "@/components/HeroSection";
 import TechSection from "@/components/TechSection";
 import { useState } from "react";
 
-export default function HomeClient() {
+export default function HomeClient(data?: any) {
   const [activeTechIndex, setActiveTechIndex] = useState(0);
 
   return (
     <>
-      <HeroSection />
+      <HeroSection data={data} />
 
-      <AboutSection activeTechIndex={activeTechIndex} />
+      <AboutSection data={data} activeTechIndex={activeTechIndex} />
 
       <TechSection
         activeIndex={activeTechIndex}

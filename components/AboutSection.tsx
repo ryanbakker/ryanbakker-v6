@@ -10,7 +10,13 @@ import {
 import AboutBento from "./AboutBento";
 import { STACK_DATA, STACK_THEMES } from "@/constants";
 
-function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
+function AboutSection({
+  activeTechIndex = 0,
+  data,
+}: {
+  activeTechIndex?: number;
+  data?: any;
+}) {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
 
@@ -44,18 +50,18 @@ function AboutSection({ activeTechIndex = 0 }: { activeTechIndex?: number }) {
       {/* TOP DIVIDER */}
       <svg
         viewBox="0 -150 1440 450"
-        className="w-full h-[100px] md:h-[150px] absolute -top-[32px] md:-top-[49px] left-0 overflow-visible z-50 pointer-events-none radial-blue bg-fixed"
+        className="w-full h-25 md:h-37.5 absolute -top-8 md:-top-12.25 left-0 overflow-visible z-50 pointer-events-none radial-blue bg-fixed"
         preserveAspectRatio="none"
       >
         <motion.path d={topPath} fill="#FFF4EB" />
       </svg>
 
-      <AboutBento />
+      <AboutBento data={data} />
 
       {/* BOTTOM DIVIDER */}
       <svg
         viewBox="0 -300 1440 450"
-        className={`w-full h-[100px] md:h-[150px] absolute -bottom-[32px] md:-bottom-[49px] left-0 overflow-visible z-50 pointer-events-none ${theme.bgClass} bg-fixed transition-colors duration-700`}
+        className={`w-full h-25 md:h-37.5 absolute -bottom-8 md:-bottom-12.25 left-0 overflow-visible z-50 pointer-events-none ${theme.bgClass} bg-fixed transition-colors duration-700`}
         preserveAspectRatio="none"
       >
         <motion.path d={bottomPath} fill="#FFF4EB" />

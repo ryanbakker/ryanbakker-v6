@@ -1,7 +1,9 @@
 import EducationSection from "@/components/EducationSection";
 import Footer from "@/components/Footer";
 import InspoSection from "@/components/InspoSection";
-import ProjectSection from "@/components/ProjectSection";
+import ProjectSection, {
+  type Project as ProjectSectionProject,
+} from "@/components/ProjectSection";
 import SocialSection from "@/components/SocialSection";
 import HomeClient from "./HomeClient";
 import { getPayload } from "payload";
@@ -16,18 +18,42 @@ export default async function Home() {
     limit: 1,
   });
 
+  const projects = await payload.find({
+    collection: "projects",
+    limit: 3,
+    sort: ["projectBehaviour.isFeatured", "-createdAt"],
+    where: {
+      or: [
+        {
+          "projectBehaviour.isHighlighted": {
+            equals: true,
+          },
+        },
+        {
+          "projectBehaviour.isFeatured": {
+            equals: true,
+          },
+        },
+      ],
+    },
+  });
+
+  console.log("Fetched Projects:", projects);
+
   const data = homeContent.docs[0];
   console.log("Found Home Content ID:", data?.id);
   console.log("Total Home Content Docs:", homeContent.totalDocs);
 
   return (
     <main className="w-full">
-      <HomeClient />
+      <HomeClient data={data} />
 
-      <ProjectSection projects={data?.projects} />
+      <ProjectSection projects={projects.docs} />
 
       <EducationSection
         quote={data?.educationQuote}
+        quoteAuthor={data?.educationQuoteAuthor}
+        extracurricularActivities={data?.extracurricularActivities}
         bodyText={
           data?.educationBodyText && (
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +70,7 @@ export default async function Home() {
         }))}
       />
 
-      <InspoSection inspirations={data?.inspirations} />
+      <InspoSection inspirations={data.inspirations} />
 
       <SocialSection
         socialCards={data?.socialCards as SocialCard[]}

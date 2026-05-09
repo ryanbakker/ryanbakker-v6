@@ -105,11 +105,19 @@ function StackingCard({ edu, index, total, progress }: StackingCardProps) {
 
 interface EducationSectionProps {
   quote?: string | null;
+  quoteAuthor?: string | null;
   bodyText?: string | React.ReactNode | null;
   items?: EducationItem[] | null;
+  extracurricularActivities?: { activityName: string }[] | null;
 }
 
-function EducationSection({ quote, bodyText, items }: EducationSectionProps) {
+function EducationSection({
+  quote,
+  quoteAuthor,
+  bodyText,
+  items,
+  extracurricularActivities,
+}: EducationSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -146,14 +154,34 @@ function EducationSection({ quote, bodyText, items }: EducationSectionProps) {
               Education
             </h3>
             {quote && (
-              <p className="font-crimson italic text-lg md:text-xl leading-tight text-white">
-                {quote}
+              <p className="font-crimson italic text-lg md:text-xl leading-tight text-white max-w-100">
+                &quot;{quote}&quot; &nbsp; &nbsp; &nbsp; &mdash;&nbsp;{" "}
+                {quoteAuthor}
               </p>
             )}
 
-            <div className="font-inter mt-7 md:mt-12 text-sm md:text-base leading-tight tracking-tight font-light text-white/80">
+            <div className="font-inter mt-7 md:mt-8 text-sm! md:text-base leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-3 last:[&_p]:mb-0">
               {bodyText}
             </div>
+
+            {extracurricularActivities &&
+              extracurricularActivities.length > 0 && (
+                <div className="mt-8 md:mt-12">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-3">
+                    Extracurricular
+                  </h4>
+                  <ul className="flex flex-col gap-1.5">
+                    {extracurricularActivities.map((activity, index) => (
+                      <li
+                        key={index}
+                        className="text-white text-sm! md:text-base font-light font-inter list-inside list-disc"
+                      >
+                        {activity.activityName}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
 
           {/* Right Side: Animated Cards */}

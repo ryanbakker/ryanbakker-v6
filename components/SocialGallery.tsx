@@ -71,13 +71,13 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
   return (
     <section className="section-parent py-16">
       <div className="section-child">
-        <h3 className="text-xl font-bold mb-8 uppercase tracking-tight text-white text-center">
+        <h3 className="text-2xl font-bold mb-8 uppercase tracking-tight text-white text-center">
           Where you can find me
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* GitHub Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+          <div className="relative w-full h-75 group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyPurple className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -90,14 +90,14 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                 <Link
                   href={githubCard?.link || "https://github.com/ryanbakker"}
                   target="_blank"
-                  className="ml-auto"
+                  className="ml-auto w-full md:w-auto"
                 >
                   <Button
                     size="lg"
                     variant="rainbow"
                     onPointerMove={onButtonPointerMove}
                     iconRight={<ArrowUpRight />}
-                    className="px-10"
+                    className="px-10 w-full md:w-auto"
                   >
                     View
                   </Button>
@@ -107,7 +107,7 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
           </div>
 
           {/* LinkedIn Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+          <div className="relative w-full h-75 group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyBlue className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -118,16 +118,18 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                 </h5>
 
                 <Link
-                  href={linkedinCard?.link || "https://linkedin.com/in/ryan-bakker"}
+                  href={
+                    linkedinCard?.link || "https://linkedin.com/in/ryan-bakker"
+                  }
                   target="_blank"
-                  className="ml-auto"
+                  className="ml-auto w-full md:w-auto"
                 >
                   <Button
                     size="lg"
                     variant="rainbow"
                     onPointerMove={onButtonPointerMove}
                     iconRight={<ArrowUpRight />}
-                    className="px-10"
+                    className="px-10 w-full md:w-auto"
                   >
                     View
                   </Button>
@@ -137,7 +139,7 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
           </div>
 
           {/* Instagram Card */}
-          <div className="relative w-full h-[300px] group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+          <div className="relative w-full h-75 group overflow-hidden rounded-[30px] border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
             <GlassyPink className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 p-8 h-full flex flex-col justify-between">
               <div className="flex flex-col w-full h-full justify-between">
@@ -148,16 +150,19 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                 </h5>
 
                 <Link
-                  href={instagramCard?.link || "https://www.instagram.com/rm_bakker/"}
+                  href={
+                    instagramCard?.link ||
+                    "https://www.instagram.com/rm_bakker/"
+                  }
                   target="_blank"
-                  className="ml-auto"
+                  className="ml-auto w-full md:w-auto"
                 >
                   <Button
                     size="lg"
                     variant="rainbow"
                     onPointerMove={onButtonPointerMove}
                     iconRight={<ArrowUpRight />}
-                    className="px-10"
+                    className="px-10 w-full md:w-auto"
                   >
                     View
                   </Button>
@@ -171,7 +176,7 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
             <GlassyGreen className="absolute inset-0 w-full h-full z-0" />
             <div className="relative z-10 w-full h-full flex flex-row items-center justify-between p-6 md:p-10 -mt-1">
               <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 h-full w-full">
-                <div className="h-full bg-[#161917] border border-[#1BA04A] rounded-2xl p-5 flex flex-col justify-between min-w-[300px] md:min-w-[450px] w-full relative">
+                <div className="h-full bg-[#161917] border border-[#1BA04A] rounded-2xl p-5 flex flex-col justify-between min-w-75 md:min-w-112.5 w-full relative">
                   <WaveformIcon className="absolute top-3 right-4 text-white" />
 
                   <h5 className="text-white/50 uppercase text-xs tracking-widest font-bold mb-3">
@@ -187,7 +192,7 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                         alt="Album Art"
                         width={250}
                         height={250}
-                        className="rounded-lg shadow-lg h-auto w-auto mt-2 md:mt-0"
+                        className="rounded-lg shadow-lg h-auto w-auto mt-2 md:mt-0 max-h-50"
                       />
                     ) : (
                       <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
@@ -195,7 +200,7 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                       </div>
                     )}
 
-                    <div className="flex-1 overflow-hidden space-y-0.5 w-full md:w-auto">
+                    <div className="flex-1 overflow-hidden space-y-0.5 w-full md:w-auto text-center md:text-left">
                       <h6 className="text-white font-bold text-lg truncate">
                         {loading
                           ? "Loading..."
@@ -226,11 +231,15 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
 
                   <div className="w-full flex flex-col gap-5">
                     <h5 className="font-bold text-xl md:text-2xl uppercase text-left mr-auto text-white mt-3 md:mt-0">
-                      {spotifyCard?.title || "My psychologically\nrevealing personality"}
+                      {spotifyCard?.title ||
+                        "My psychologically\nrevealing personality"}
                     </h5>
 
                     <Link
-                      href={spotifyCard?.link || "https://open.spotify.com/user/31cgbozvcwgbz5xhlpjogd32wiqe?si=55cfba08ec2d4bf0"}
+                      href={
+                        spotifyCard?.link ||
+                        "https://open.spotify.com/user/31cgbozvcwgbz5xhlpjogd32wiqe?si=55cfba08ec2d4bf0"
+                      }
                       target="_blank"
                       className="ml-auto w-full md:w-fit"
                     >
