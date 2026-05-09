@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const payload = await getPayload({ config });
-    const collections = ["home-content", "media"];
+    const collections = ["home-content", "media", "projects"];
     const stats: any = {};
 
     for (const slug of collections) {
@@ -16,7 +16,11 @@ export async function GET() {
       });
       stats[slug] = {
         totalDocs: result.totalDocs,
-        docs: result.docs.map(d => ({ id: d.id, title: (d as any).title || (d as any).alt || "N/A" }))
+        docs: result.docs.map(d => ({ 
+          id: d.id, 
+          title: (d as any).title || (d as any).alt || "N/A",
+          slug: (d as any).projectBehaviour?.slug || "N/A"
+        }))
       };
     }
 

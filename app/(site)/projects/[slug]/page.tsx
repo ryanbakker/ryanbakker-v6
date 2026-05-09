@@ -1,31 +1,302 @@
-import { Button } from "@/components/ui/button";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import { notFound } from "next/navigation";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { ExternalLink, Undo2 } from "lucide-react";
+import { ProjectGallery } from "@/components/ProjectGallery";
+import { Project } from "@/payload-types";
+import { jsxConverters } from "@/lib/RichTextConverters";
+import Footer from "@/components/Footer";
+import { ShareButton } from "@/components/ShareButton";
+import { VantaBackground } from "@/components/VentaBackground";
 
-function ProjectSinglePage() {
-  return (
-    <main className="text-white w-full min-h-screen radial-purple">
-      <div>{/* Background asset */}</div>
-
-      <section>
-        <h1>Project Title</h1>
-
-        <Link href="/projects" passHref>
-          <Button>Return to Projects</Button>
-        </Link>
-      </section>
-
-      <section>
-        {/* Objective */}
-        {/* Technologies */}
-        {/* External Links */}
-        {/* Tags */}
-        {/* Category */}
-        {/* Description */}
-      </section>
-
-      <section>{/* Optional Project Article */}</section>
-    </main>
-  );
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export default ProjectSinglePage;
+export default async function ProjectSinglePage({ params }: PageProps) {
+  const { slug } = await params;
+  const payload = await getPayload({ config });
+
+  const { docs: projects } = (await payload.find({
+    collection: "projects",
+    where: {
+      "projectBehaviour.slug": {
+        equals: slug,
+      },
+    },
+    limit: 1,
+  })) as unknown as { docs: Project[] };
+
+  if (!projects.length) {
+    notFound();
+  }
+
+  const project = projects[0];
+  const hasArticle = !!project.projectArticle;
+
+  return (
+    <>
+      <main className="relative w-full min-h-screen bg-neutral-900 overflow-x-hidden">
+        <section className="mt-8 md:mt-20 z-50 relative px-4 md:px-0">
+          <div className="max-w-5xl mx-auto flex flex-col items-start gap-10">
+            <Link href="/projects" passHref>
+              <Button
+                variant="refined-outline"
+                iconLeft={<Undo2 />}
+                className="whitespace-nowrap"
+              >
+                Back to Project Archive
+              </Button>
+            </Link>
+
+            <h1 className="text-white font-extrabold text-3xl md:text-[45px] leading-tight md:leading-12 uppercase line-clamp-2 w-full">
+              {project.title}
+            </h1>
+          </div>
+
+          <div className="max-w-6xl mx-auto mt-4 pt-8 md:pt-12 pb-12 md:pb-18 relative mb-4">
+            {/* Radial Blue background that goes to the halfway point of this container */}
+            <VantaBackground
+              foreground="#14224C"
+              background="#0A0C24"
+              className="absolute -top-90 bottom-1/2 left-1/2 -translate-x-1/2 w-screen h-screen -z-10 pointer-events-none drop-shadow-xl"
+            />
+
+            <svg width="0" height="0" className="absolute" aria-hidden="true">
+              <defs>
+                <filter
+                  id="project-bg-filter"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                  filterUnits="objectBoundingBox"
+                  primitiveUnits="userSpaceOnUse"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dx="5" dy="10" />
+                  <feGaussianBlur stdDeviation="10" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in2="BackgroundImageFix"
+                    result="effect1_dropShadow"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_dropShadow"
+                    result="shape"
+                  />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dx="-0.5" dy="-0.8" />
+                  <feGaussianBlur stdDeviation="0.25" />
+                  <feComposite
+                    in2="hardAlpha"
+                    operator="arithmetic"
+                    k2="-1"
+                    k3="1"
+                  />
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
+                  />
+                  <feBlend
+                    mode="screen"
+                    in2="shape"
+                    result="effect2_innerShadow"
+                  />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dx="0.3" dy="0.8" />
+                  <feGaussianBlur stdDeviation="0.25" />
+                  <feComposite
+                    in2="hardAlpha"
+                    operator="arithmetic"
+                    k2="-1"
+                    k3="1"
+                  />
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0"
+                  />
+                  <feBlend
+                    mode="screen"
+                    in2="effect2_innerShadow"
+                    result="effect3_innerShadow"
+                  />
+                  <feGaussianBlur
+                    stdDeviation="0.5"
+                    result="effect4_foregroundBlur"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            <div
+              className="absolute left-1 md:left-3.75 top-1 md:top-2.5 right-1 md:right-6.25 bottom-1 md:bottom-7.5 z-30 rounded-[24px] md:rounded-[40px] pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(205deg, #D78EFF 0%, rgba(179, 122, 240, 0.8) 3.84%, rgba(37, 50, 104, 0.8) 33.65%, #290046 72.11%)",
+                filter: "url(#project-bg-filter)",
+              }}
+            />
+
+            <div
+              className={cn(
+                "max-w-5xl mx-auto z-50 relative text-white flex flex-col gap-10 w-full px-6 md:px-0",
+                hasArticle ? "items-start" : "md:flex-row md:items-center",
+              )}
+            >
+              <div
+                className={cn(
+                  "grid grid-cols-1 w-full gap-x-6 gap-y-8",
+                  hasArticle
+                    ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-full"
+                    : "md:grid-cols-2 md:max-w-[50%]",
+                )}
+              >
+                <div
+                  className={cn(
+                    "project-single-cell",
+                    hasArticle ? "md:col-span-2 order-1" : "col-span-1",
+                  )}
+                >
+                  <h3>Objective</h3>
+                  <p>{project.projectDetails?.subtitle}</p>
+                </div>
+
+                <div
+                  className={cn(
+                    "project-single-cell col-span-1",
+                    hasArticle && "order-5",
+                  )}
+                >
+                  <h3>Tags</h3>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {project.tags?.map((tag, i) => (
+                      <li
+                        key={i}
+                        className="px-2 py-0.5 bg-white/10 rounded-md text-[10px]"
+                      >
+                        {tag.label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div
+                  className={cn(
+                    "project-single-cell col-span-1",
+                    hasArticle && "order-2",
+                  )}
+                >
+                  <h3>Technologies</h3>
+                  <ul className="list-disc list-outside ml-4 space-y-1 text-neutral-300">
+                    {project.technologies?.map((tech, i) => (
+                      <li key={i} className="pl-0.5">
+                        {tech.label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div
+                  className={cn(
+                    "project-single-cell col-span-1",
+                    hasArticle && "order-3",
+                  )}
+                >
+                  <h3>External Links</h3>
+                  <div className="flex flex-col gap-1">
+                    {project.externalLinks?.map((link, i) => (
+                      <Link
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline flex items-center gap-1 w-fit text-neutral-300 text-sm"
+                      >
+                        {link.label} <ExternalLink size={12} />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  className={cn(
+                    "project-single-cell col-span-1 md:col-span-2",
+                    hasArticle && "order-4",
+                  )}
+                >
+                  <h3>Description</h3>
+                  <p>{project.projectDetails.description}</p>
+                </div>
+
+                <div
+                  className={cn(
+                    "project-single-cell col-span-1",
+                    hasArticle && "order-6",
+                  )}
+                />
+              </div>
+
+              <div
+                className={cn(
+                  "w-full h-full flex items-center justify-center",
+                  hasArticle ? "max-w-full" : "max-w-full md:max-w-[50%]",
+                )}
+              >
+                <ProjectGallery images={project.images} />
+              </div>
+            </div>
+          </div>
+
+          {hasArticle && project.projectArticle && (
+            <article className="max-w-6xl mx-auto px-6 md:px-0 text-white article-content mb-16">
+              <div className="flex items-center justify-between max-w-5xl mx-auto">
+                <h3 className="text-3xl!">Article</h3>
+                <ShareButton />
+              </div>
+              <hr className="border-neutral-800 -mt-8 mb-10" />
+
+              <div className="max-w-5xl mx-auto">
+                <RichText
+                  className="project-article hyphens-manual!"
+                  data={project.projectArticle}
+                  converters={jsxConverters}
+                />
+              </div>
+            </article>
+          )}
+        </section>
+      </main>
+      <div className="h-20 bg-neutral-950" />
+      <Footer />
+    </>
+  );
+}

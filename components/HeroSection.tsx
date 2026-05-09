@@ -674,15 +674,22 @@ export function HeroSection() {
                 <div className="hidden md:flex flex-col lg:flex-row lg:items-center gap-2">
                   <Link href="/projects">
                     <Button
+                      variant="rainbow"
                       onPointerMove={onButtonPointerMove}
-                      className="w-fit bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 px-6 rounded-[7px] flex items-center gap-2 cursor-pointer transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
+                      iconLeft={<GalleryVerticalEnd />}
+                      className="w-fit py-2 px-6"
                     >
-                      <GalleryVerticalEnd /> View Projects
+                      View Projects
                     </Button>
                   </Link>
                   <Link href="/#continue">
-                    <Button variant="phantom" className="w-fit cursor-pointer">
-                      <ChevronsDown /> Continue Reading
+                    <Button
+                      variant="refined-outline"
+                      onPointerMove={onButtonPointerMove}
+                      iconLeft={<ChevronsDown />}
+                      className="w-fit"
+                    >
+                      Continue Reading
                     </Button>
                   </Link>
                 </div>
@@ -696,7 +703,9 @@ export function HeroSection() {
                       aria-label={label}
                       className="text-white transition-all hover:text-[#ebcffb]"
                     >
-                      <Icon aria-hidden />
+                      <Button variant="glass-icon" size="icon">
+                        <Icon aria-hidden />
+                      </Button>
                     </Link>
                   ))}
                 </div>
@@ -767,19 +776,23 @@ export function HeroSection() {
             <Link href="/projects">
               <Button
                 size="lg"
+                variant="rainbow"
                 onPointerMove={onButtonPointerMove}
-                className="w-full bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(255,197,142,0.8)_0%,transparent_100%),linear-gradient(65deg,#FFFFFF_0%,#FED5FF_25%,#D9C6FE_50%,#FED5FF_75%,#FFFFFF_100%)] bg-size-[100%_100%,200%_auto] text-black font-semibold py-2 rounded-[7px] flex items-center gap-2 cursor-pointer px-10 transition-all duration-500 hover:bg-position-[0%_0%,right_center] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(217,198,254,0.5)] active:scale-95"
+                iconLeft={<GalleryVerticalEnd />}
+                className="w-full py-2 px-10"
               >
-                <GalleryVerticalEnd /> View Projects
+                View Projects
               </Button>
             </Link>
             <Link href="/#continue">
               <Button
                 size="lg"
-                variant="phantom"
-                className="w-full cursor-pointer px-10"
+                variant="refined-outline"
+                onPointerMove={onButtonPointerMove}
+                iconLeft={<ChevronsDown />}
+                className="w-full px-10"
               >
-                <ChevronsDown /> Continue Reading
+                Continue Reading
               </Button>
             </Link>
           </div>

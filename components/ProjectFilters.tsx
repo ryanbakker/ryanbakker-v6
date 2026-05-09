@@ -20,6 +20,14 @@ export function ProjectFilters({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const onButtonPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
+
   const toggleTag = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString());
     let currentTags = params.get("tags")?.split(",").filter(Boolean) || [];
@@ -46,14 +54,20 @@ export function ProjectFilters({
   };
 
   return (
-    <div className="relative">
-      <Button size="lg" onClick={() => setIsOpen(!isOpen)}>
-        <Funnel strokeWidth={3} />
-        &nbsp; Filter Projects
+    <div className="relative w-full">
+      <Button
+        size="lg"
+        variant="refined-outline"
+        className="w-full md:w-fit"
+        onPointerMove={onButtonPointerMove}
+        onClick={() => setIsOpen(!isOpen)}
+        iconLeft={<Funnel strokeWidth={2} />}
+      >
+        Filter Projects
       </Button>
 
       {isOpen && (
-        <div className="absolute top-15 right-0 min-h-25 w-93 z-50 rounded-lg bg-neutral-900/95 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm">
+        <div className="absolute top-15 right-0 min-h-25 w-full md:w-93 z-50 rounded-lg bg-neutral-900/95 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm">
           <div className="flex flex-col h-full">
             <div className="flex flex-wrap gap-2 mb-4">
               {availableTags.map((tag) => {
@@ -66,7 +80,7 @@ export function ProjectFilters({
                       "py-1 px-3 text-sm rounded-md transition-colors cursor-pointer",
                       isActive
                         ? "bg-white text-black font-medium"
-                        : "bg-neutral-800 text-white hover:bg-neutral-700"
+                        : "bg-neutral-800 text-white hover:bg-neutral-700",
                     )}
                   >
                     {tag}

@@ -34,7 +34,7 @@ export function GridCard({
       <svg
         width="0"
         height="0"
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none overflow-hidden"
         aria-hidden="true"
       >
         <defs>
@@ -128,7 +128,7 @@ export function GridCard({
       */}
       <div
         className={cn(
-          "absolute inset-0 z-0 bg-[#462F65] pointer-events-none transition-transform duration-300",
+          "absolute inset-0 z-0 bg-[#462F65] pointer-events-none transition-transform duration-300 opacity-80!",
           borderRadius,
         )}
         style={{ filter: `url(#${filterId})` }}

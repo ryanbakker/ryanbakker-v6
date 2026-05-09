@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FocusEvent, FormEvent } from "react";
 import { Button } from "./ui/button";
+import { Send } from "lucide-react";
 
 interface ContactSectionProps {
   contactDescription?: string | null;
@@ -15,6 +16,14 @@ export default function ContactSection({
   email,
 }: ContactSectionProps) {
   const [status, setStatus] = useState("");
+
+  const onButtonPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
 
   // Track the actual input values
   const [formData, setFormData] = useState({
@@ -392,10 +401,12 @@ export default function ContactSection({
             <div className="mt-auto pt-2 md:pt-6 flex flex-col items-end gap-3">
               <Button
                 type="submit"
-                variant="kinetic"
+                variant="rainbow"
+                onPointerMove={onButtonPointerMove}
+                iconRight={<Send />}
                 // Disable the button if the form isn't perfectly valid or if it's currently sending
                 disabled={!isFormValid || status === "Sending..."}
-                className="disabled:cursor-not-allowed disabled:opacity-50 w-full md:w-fit py-5"
+                className="disabled:cursor-not-allowed disabled:opacity-50 w-full md:w-fit py-5 px-10"
               >
                 {status === "Sending..." ? "SENDING..." : "SUBMIT"}
               </Button>

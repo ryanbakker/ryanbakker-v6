@@ -10,6 +10,7 @@ import {
   GlassyGreen,
 } from "./SocialBackgrounds";
 import { Button } from "./ui/button";
+import { ArrowUpRight } from "lucide-react";
 import { WaveformIcon } from "./WaveformIcon";
 import {
   GitHubLargeIcon,
@@ -35,6 +36,14 @@ export interface SocialCard {
 function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
   const [topTrack, setTopTrack] = useState<TopTrack | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const onButtonPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
 
   useEffect(() => {
     const fetchTopTrack = async () => {
@@ -83,7 +92,13 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                   target="_blank"
                   className="ml-auto"
                 >
-                  <Button size="lg" variant="kinetic" className="px-10">
+                  <Button
+                    size="lg"
+                    variant="rainbow"
+                    onPointerMove={onButtonPointerMove}
+                    iconRight={<ArrowUpRight />}
+                    className="px-10"
+                  >
                     View
                   </Button>
                 </Link>
@@ -107,7 +122,13 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                   target="_blank"
                   className="ml-auto"
                 >
-                  <Button size="lg" variant="kinetic" className="px-10">
+                  <Button
+                    size="lg"
+                    variant="rainbow"
+                    onPointerMove={onButtonPointerMove}
+                    iconRight={<ArrowUpRight />}
+                    className="px-10"
+                  >
                     View
                   </Button>
                 </Link>
@@ -131,7 +152,13 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                   target="_blank"
                   className="ml-auto"
                 >
-                  <Button size="lg" variant="kinetic" className="px-10">
+                  <Button
+                    size="lg"
+                    variant="rainbow"
+                    onPointerMove={onButtonPointerMove}
+                    iconRight={<ArrowUpRight />}
+                    className="px-10"
+                  >
                     View
                   </Button>
                 </Link>
@@ -209,7 +236,9 @@ function SocialGallery({ socialCards }: { socialCards?: SocialCard[] | null }) {
                     >
                       <Button
                         size="lg"
-                        variant="kinetic"
+                        variant="rainbow"
+                        onPointerMove={onButtonPointerMove}
+                        iconRight={<ArrowUpRight />}
                         className="px-10 w-full"
                       >
                         View{" "}

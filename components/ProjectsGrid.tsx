@@ -4,6 +4,7 @@ import { GridCard } from "./GridCard";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { OtherProjectsClient } from "./OtherProjectsClient";
 
 interface ProjectsGridProps {
   activeTags: string[];
@@ -25,20 +26,28 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
     return activeTags.every((tag) => projectTagLabels.includes(tag));
   });
 
-  const featuredProject = filteredProjects.find((p) => p.isFeatured);
+  const featuredProject = filteredProjects.find(
+    (p) => p.projectBehaviour?.isFeatured,
+  );
   const highlightedProjects = filteredProjects
-    .filter((p) => p.isHighlighted && p.id !== featuredProject?.id)
+    .filter(
+      (p) => p.projectBehaviour?.isHighlighted && p.id !== featuredProject?.id,
+    )
     .slice(0, 2);
 
   const otherProjects = filteredProjects.filter(
-    (p) => !p.isFeatured && !p.isHighlighted,
+    (p) =>
+      !p.projectBehaviour?.isFeatured && !p.projectBehaviour?.isHighlighted,
   );
 
-  const renderTags = (tags: { label: string }[]) => {
+  const renderTags = (
+    tags: { label: string }[],
+    layoutClasses: string = "flex-wrap",
+  ) => {
     if (!tags || tags.length === 0) return null;
 
     return (
-      <ul className="flex flex-wrap gap-1.5 mt-4">
+      <ul className={cn("flex gap-1.5 mt-4", layoutClasses)}>
         {tags.map((tag, i) => {
           const isActive = activeTags.includes(tag.label);
           const isFiltering = activeTags.length > 0;
@@ -48,7 +57,7 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
               key={i}
               className={cn(
                 "px-2 py-0.5 bg-white/10 rounded-md text-[10px] transition-opacity",
-                isFiltering && !isActive && "opacity-30 grayscale"
+                isFiltering && !isActive && "opacity-30 grayscale",
               )}
             >
               {tag.label}
@@ -59,40 +68,53 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
     );
   };
 
+  const getFeaturedImageUrl = (project: any) => {
+    const featuredImage = project.projectDetails?.featuredImage;
+    if (featuredImage && typeof featuredImage === "object") {
+      return featuredImage.url || "";
+    }
+    return "";
+  };
+
   return (
-    <section className="max-w-6xl mx-auto my-16">
+    <section className="max-w-6xl mx-auto my-16 px-4 md:px-5 lg:px-0">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Featured Project */}
         {featuredProject && (
           <Link
-            href={`/projects/${featuredProject.slug}`}
+            href={`/projects/${featuredProject.projectBehaviour.slug}`}
             passHref
-            className="col-span-1 md:col-span-2 row-span-2 h-full"
+            // 1. Added animate-in classes here
+            className="col-span-1 md:col-span-2 row-span-2 h-full transition-transform duration-500 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+            // 2. Hardcoded 0ms delay so it loads instantly
+            style={{ animationDelay: "0ms", animationFillMode: "both" }}
           >
             <GridCard className="overflow-hidden group h-full min-h-100">
-              {featuredProject.images?.[0]?.image &&
-                typeof featuredProject.images[0].image !== "string" && (
-                  <Image
-                    src={featuredProject.images[0].image.url || ""}
-                    alt={featuredProject.title}
-                    fill
-                    objectPosition="top"
-                    className="object-cover rounded-3xl max-h-[80%] shadow-xl"
-                  />
-                )}
+              {getFeaturedImageUrl(featuredProject) && (
+                <Image
+                  src={getFeaturedImageUrl(featuredProject)}
+                  alt={featuredProject.title}
+                  fill
+                  objectPosition="top"
+                  className="object-cover rounded-3xl max-h-[80%] shadow-xl"
+                />
+              )}
 
               <div className="relative flex flex-row justify-between items-end h-full z-10 pb-1.5">
                 <div className="w-full">
-                  <h2 className="text-2xl font-bold leading-6 -tracking-[4%]">
+                  <h2 className="text-2xl font-bold leading-6 -tracking-[4%] line-clamp-2">
                     {featuredProject.title}
                   </h2>
                   <p className="text-sm opacity-80 font-light">
-                    {featuredProject.subtitle}
+                    {featuredProject.projectDetails?.subtitle}
                   </p>
                 </div>
 
                 <div className="flex justify-end">
-                  {renderTags(featuredProject.tags as { label: string }[])}
+                  {renderTags(
+                    featuredProject.tags as { label: string }[],
+                    "flex-wrap-reverse items-end justify-end",
+                  )}
                 </div>
               </div>
             </GridCard>
@@ -100,30 +122,38 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
         )}
 
         {/* Highlighted Projects */}
-        {highlightedProjects.map((project) => (
+        {/* 3. Added 'index' parameter to the map function */}
+        {highlightedProjects.map((project, index) => (
           <Link
             key={project.id}
-            href={`/projects/${project.slug}`}
-            className="col-span-1 md:col-span-2 row-span-1"
+            href={`/projects/${project.projectBehaviour.slug}`}
+            // 4. Added animate-in classes here
+            className="col-span-1 md:col-span-2 row-span-1 transition-transform hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+            // 5. Staggered delay: index 0 = 150ms, index 1 = 300ms
+            style={{
+              animationDelay: `${(index + 1) * 150}ms`,
+              animationFillMode: "both",
+            }}
             passHref
           >
             <GridCard className="overflow-hidden group h-full">
-              {project.images?.[0]?.image &&
-                typeof project.images[0].image !== "string" && (
-                  <Image
-                    src={project.images[0].image.url || ""}
-                    alt={project.title}
-                    fill
-                    className="object-cover max-w-[50%] ml-auto rounded-2xl shadow-xl"
-                  />
-                )}
+              {getFeaturedImageUrl(project) && (
+                <Image
+                  src={getFeaturedImageUrl(project)}
+                  alt={project.title}
+                  fill
+                  className="object-cover max-w-[50%] ml-auto rounded-2xl shadow-xl"
+                />
+              )}
 
-              <div className="relative flex flex-col justify-end h-full z-10 max-w-[50%] pl-1 pb-2">
-                <h3 className="text-2xl font-bold leading-6 -tracking-[4%]">
+              <div
+                className={`relative flex flex-col justify-end h-full z-10 pl-1 pb-2 ${getFeaturedImageUrl(project) ? "max-w-[50%]" : ""}`}
+              >
+                <h3 className="text-2xl font-bold leading-7 -tracking-[4%] line-clamp-2">
                   {project.title}
                 </h3>
-                <p className="text-sm opacity-80 font-light">
-                  {project.subtitle}
+                <p className="text-sm opacity-80 font-light pt-2.5">
+                  {project.projectDetails?.subtitle}
                 </p>
 
                 {renderTags(project.tags as { label: string }[])}
@@ -132,36 +162,11 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
           </Link>
         ))}
 
-        {/* Other Projects */}
-        {otherProjects.map((project) => (
-          <Link
-            href={`/projects/${project.slug}`}
-            passHref
-            key={project.id}
-            className="col-span-1 row-span-1"
-          >
-            <GridCard className="overflow-hidden group" variant="small">
-              {project.images?.[0]?.image &&
-                typeof project.images[0].image !== "string" && (
-                  <Image
-                    src={project.images[0].image.url || ""}
-                    alt={project.title}
-                    fill
-                    className="object-cover opacity-20 group-hover:scale-105 transition-transform duration-500"
-                  />
-                )}
-              <div className="relative flex flex-col justify-end h-full z-10">
-                <h5 className="text-lg font-bold leading-tight">
-                  {project.title}
-                </h5>
-                <p className="text-sm opacity-80 leading-tight">
-                  {project.subtitle}
-                </p>
-                {renderTags(project.tags as { label: string }[])}
-              </div>
-            </GridCard>
-          </Link>
-        ))}
+        {/* Delegate the rest of the projects to the interactive client component */}
+        <OtherProjectsClient
+          otherProjects={otherProjects}
+          activeTags={activeTags}
+        />
       </div>
     </section>
   );

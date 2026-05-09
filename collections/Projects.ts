@@ -69,6 +69,11 @@ export const Projects: CollectionConfig = {
               type: "group",
               fields: [
                 {
+                  name: "featuredImage",
+                  type: "upload",
+                  relationTo: "media",
+                },
+                {
                   name: "subtitle",
                   type: "text",
                   label: "Subtitle",
@@ -82,10 +87,22 @@ export const Projects: CollectionConfig = {
             },
             {
               name: "externalLinks",
-              type: "group",
+              type: "array",
+              label: "External Links",
               fields: [
-                { name: "githubRepo", type: "text" },
-                { name: "liveBuild", type: "text" },
+                {
+                  name: "label",
+                  type: "text",
+                  required: true,
+                  admin: {
+                    placeholder: "e.g. View on GitHub",
+                  },
+                },
+                {
+                  name: "url",
+                  type: "text",
+                  required: true,
+                },
               ],
             },
             {

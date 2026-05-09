@@ -5,6 +5,8 @@ import Link from "next/link";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { ProjectFilters } from "@/components/ProjectFilters";
+import { DotPattern } from "@/components/DotPattern"; // Make sure your import path matches
+import Footer from "@/components/Footer";
 
 async function ProjectsPage({
   searchParams,
@@ -17,7 +19,7 @@ async function ProjectsPage({
   const payload = await getPayload({ config });
   const { docs: projects } = await payload.find({
     collection: "projects",
-    depth: 0, // We only need tags, no need for deep fetch
+    depth: 0,
     limit: 1000,
   });
 
@@ -30,36 +32,74 @@ async function ProjectsPage({
     ),
   ).sort() as string[];
 
+  // Reusable animation classes to keep the JSX clean
+  const animateClasses =
+    "animate-in fade-in slide-in-from-bottom-8 ease-out duration-700";
+
   return (
-    <main className="min-h-screen w-full overflow-x-hidden radial-purple text-white">
-      <section className="max-w-6xl flex flex-col md:flex-row justify-between items-end mx-auto mt-24 gap-8">
-        <div>
-          <h1 className="font-extrabold text-[40px] md:text-[60px] tracking-[-4%] uppercase leading-tight md:leading-18">
-            Project Archive
-          </h1>
-          <p className="font-light tracking-[2%] text-sm max-w-100">
-            Some of my past projects, ranging from Web Development to
-            Photography. Filter through to find exactly what you&apos;re looking
-            for, or get in touch to find out more.
-          </p>
-        </div>
+    <DotPattern
+      className="radial-purple-translucent bg-transparent"
+      baseColor="#3b2856"
+      glowColor="#a855f7"
+      glowIntensity={1.2}
+    >
+      <main className="h-full w-full overflow-y-auto overflow-x-hidden text-white relative z-10 pb-16">
+        <section className="max-w-6xl flex flex-col md:flex-row md:justify-between md:items-end md:mx-auto mt-24 gap-8 px-4 md:px-5 lg:px-0">
+          <div className="w-full">
+            {/* 1. Title - Loads instantly (0ms) */}
+            <h1
+              className={`font-extrabold text-[40px] md:text-[60px] tracking-[-4%] uppercase leading-tight md:leading-18 ${animateClasses}`}
+              style={{ animationDelay: "0ms", animationFillMode: "both" }}
+            >
+              Project Archive
+            </h1>
 
-        <div className="flex flex-row items-center gap-4 md:gap-6 relative">
-          <ProjectFilters
-            availableTags={availableTags}
-            activeTags={activeTags}
-          />
-          <Link href={"/"} passHref>
-            <Button size="lg">
-              Return to Base &nbsp;
-              <Undo2 strokeWidth={3} />
-            </Button>
-          </Link>
-        </div>
-      </section>
+            {/* 2. Subtitle - Loads shortly after (150ms) */}
+            <p
+              className={`font-light tracking-[2%] text-sm max-w-100 mt-4 ${animateClasses}`}
+              style={{ animationDelay: "150ms", animationFillMode: "both" }}
+            >
+              Some of my past projects, ranging from Web Development to
+              Photography. Filter through to find exactly what you&apos;re
+              looking for, or get in touch to find out more.
+            </p>
+          </div>
 
-      <ProjectsGrid activeTags={activeTags} />
-    </main>
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 relative w-full md:w-auto">
+            {/* 3. Filters - 300ms delay */}
+            <div
+              className={animateClasses}
+              style={{ animationDelay: "300ms", animationFillMode: "both" }}
+            >
+              <ProjectFilters
+                availableTags={availableTags}
+                activeTags={activeTags}
+              />
+            </div>
+
+            {/* 4. Button - 450ms delay */}
+            <Link
+              href={"/"}
+              className={`w-full md:w-fit ${animateClasses}`}
+              passHref
+              style={{ animationDelay: "450ms", animationFillMode: "both" }}
+            >
+              <Button
+                size="lg"
+                variant="refined-outline"
+                iconRight={<Undo2 strokeWidth={2} />}
+                className="w-full md:w-fit"
+              >
+                Return to Base
+              </Button>
+            </Link>
+          </div>
+        </section>
+
+        <ProjectsGrid activeTags={activeTags} />
+      </main>
+      <Footer />
+    </DotPattern>
   );
 }
 

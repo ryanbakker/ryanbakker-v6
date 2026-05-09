@@ -258,13 +258,17 @@ export interface Project {
     isHighlighted?: boolean | null;
   };
   projectDetails?: {
+    featuredImage?: (number | null) | Media;
     subtitle?: string | null;
     description?: string | null;
   };
-  externalLinks?: {
-    githubRepo?: string | null;
-    liveBuild?: string | null;
-  };
+  externalLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   images?:
     | {
         image: number | Media;
@@ -510,14 +514,16 @@ export interface ProjectsSelect<T extends boolean = true> {
   projectDetails?:
     | T
     | {
+        featuredImage?: T;
         subtitle?: T;
         description?: T;
       };
   externalLinks?:
     | T
     | {
-        githubRepo?: T;
-        liveBuild?: T;
+        label?: T;
+        url?: T;
+        id?: T;
       };
   images?:
     | T
