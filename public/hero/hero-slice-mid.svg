@@ -1,6 +1,6 @@
 <svg width="345" height="139" viewBox="0 0 345 139" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g filter="url(#filter0_diif_128_1034)">
-<path d="M4 66C4 30.1015 33.1015 1 69 1H276C311.899 1 341 30.1015 341 66C341 101.899 311.899 131 276 131H69C33.1015 131 4 101.899 4 66Z" fill="url(#paint0_linear_128_1034)" shape-rendering="crispEdges"/>
+<path d="M4 66C4 30.1015 33.1015 1 69 1H276C311.899 1 341 30.1015 341 66C341 101.899 311.899 131 276 131H69C33.1015 131 4 101.899 4 66Z" fill="url(#paint0_linear_128_1034)" shape-rendering="geometricPrecision"/>
 </g>
 <path d="M279 130H6V2H279V130Z" fill="url(#pattern0_128_1034)"/>
 <defs>

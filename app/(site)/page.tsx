@@ -16,6 +16,7 @@ export default async function Home() {
   const homeContent = await payload.find({
     collection: "home-content",
     limit: 1,
+    depth: 5,
   });
 
   const projects = await payload.find({

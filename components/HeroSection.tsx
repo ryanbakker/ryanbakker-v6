@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { socialLinks } from "@/constants";
+import { HERO_SOCIAL_LINKS } from "@/constants";
 import { ChevronsDown, GalleryVerticalEnd } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -132,8 +132,10 @@ function TiltLayer({
           tracking && !isPaused
             ? "transform 75ms linear, filter 420ms cubic-bezier(0.22, 1, 0.36, 1)"
             : "transform 420ms cubic-bezier(0.22, 1, 0.36, 1), filter 420ms cubic-bezier(0.22, 1, 0.36, 1)",
-        willChange: hasTilt ? "transform" : "auto",
         WebkitFontSmoothing: "antialiased",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+        transform: `${transform} translateZ(0)`,
       }}
     >
       {children}
@@ -219,7 +221,7 @@ export function HeroSection({ data }: { data?: any }) {
                   <path
                     d="M225.222 44.5686C214.147 66.7247 192.162 81.3549 167.448 83.0158L51.9526 90.7775C26.0058 92.5212 3.99998 71.9446 3.99998 45.9393C3.99998 21.12 24.12 1.00002 48.9393 1.00002L198.292 1C220.671 1 235.228 24.5505 225.222 44.5686Z"
                     fill="url(#paint0_linear_25_315)"
-                    shapeRendering="crispEdges"
+                    shapeRendering="geometricPrecision"
                   />
                 </g>
                 <defs>
@@ -353,7 +355,7 @@ export function HeroSection({ data }: { data?: any }) {
                   <path
                     d="M8.4139 85.5621C22.2466 45.1627 58.3958 16.5614 100.894 12.392L214.677 1.22897C242.315 -1.48259 266.266 20.2333 266.266 48.0044V106.168C266.266 132.125 245.223 153.168 219.266 153.168L51.0373 153.168C18.7961 153.168 -3.87249 121.445 6.57162 90.9427L8.4139 85.5621Z"
                     fill="url(#paint0_linear_25_314)"
-                    shapeRendering="crispEdges"
+                    shapeRendering="geometricPrecision"
                   />
                 </g>
                 <defs>
@@ -690,14 +692,14 @@ export function HeroSection({ data }: { data?: any }) {
                   </Link>
                 </div>
                 <div className="hidden md:flex flex-row items-center gap-4 mt-1">
-                  {socialLinks.map(({ href, label, Icon }) => (
+                  {HERO_SOCIAL_LINKS.map(({ href, label, Icon }) => (
                     <Link
                       key={href}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={label}
-                      className="text-white transition-all hover:text-[#ebcffb]"
+                      className="text-[#1A0E35] transition-all hover:text-[#442A55]"
                     >
                       <Button variant="glass-icon" size="icon">
                         <Icon aria-hidden />
@@ -723,6 +725,8 @@ export function HeroSection({ data }: { data?: any }) {
               height={800}
               width={800}
               alt="Hero Slice Top"
+              unoptimized
+              priority
             />
           </TiltLayer>
 
@@ -738,6 +742,8 @@ export function HeroSection({ data }: { data?: any }) {
               height={800}
               width={800}
               alt="Hero Slice Middle"
+              unoptimized
+              priority
             />
           </TiltLayer>
 
@@ -753,6 +759,8 @@ export function HeroSection({ data }: { data?: any }) {
               height={800}
               width={800}
               alt="Hero Slice Bottom"
+              unoptimized
+              priority
             />
           </TiltLayer>
         </div>
@@ -788,7 +796,7 @@ export function HeroSection({ data }: { data?: any }) {
             </Link>
           </div>
           <div className="flex md:hidden flex-row items-center gap-5 mt-3 mb-8 scale-135">
-            {socialLinks.map(({ href, label, Icon }) => (
+            {HERO_SOCIAL_LINKS.map(({ href, label, Icon }) => (
               <Link
                 key={href}
                 href={href}
@@ -797,7 +805,7 @@ export function HeroSection({ data }: { data?: any }) {
                 aria-label={label}
                 className="text-white transition-all hover:text-[#ebcffb]"
               >
-                <Icon aria-hidden />
+                <Icon aria-hidden className="h-7 w-7" />
               </Link>
             ))}
           </div>

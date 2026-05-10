@@ -36,10 +36,10 @@ function CardShell({
 }) {
   return (
     <div
-      className={`relative w-full h-full min-h-40 p-6 text-white transition-colors duration-500 ${bgColorClass}`}
+      className={`relative w-full h-full min-h-40 p-2 md:p-6 text-white transition-colors duration-500 ${bgColorClass}`}
       style={{ opacity }}
     >
-      <div className="flex gap-2 mb-4 text-3xl font-bold">
+      <div className="flex gap-2 mt-1 md:mt-0 mb-4 text-3xl font-bold">
         {icons.map((Icon, idx) => (
           <Icon key={idx} width={34} height={34} />
         ))}

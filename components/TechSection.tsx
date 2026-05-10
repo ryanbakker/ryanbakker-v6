@@ -25,8 +25,8 @@ function TechSection({
         {/* RELATIVE WRAPPER for Blueprint lines and the Grid */}
         <div className="relative w-full">
           {/* Blueprint lines (z-0) */}
-          <div className="absolute top-[30.6%] left-0 w-[90%] h-px bg-white/20 z-0" />
-          <div className="absolute top-[66%] left-[10%] w-[90%] h-px bg-white/20 z-0" />
+          <div className="absolute top-[33.5%] md:top-[30.6%] left-0 w-[90%] h-px bg-white/20 z-0" />
+          <div className="absolute top-[67.8%] md:top-[66%] left-[10%] w-[90%] h-px bg-white/20 z-0" />
           <div className="absolute top-[5%] left-[50%] w-px h-[90%] bg-white/20 z-0" />
           <div className="absolute top-[10%] left-[24.4%] w-px h-[80%] bg-white/20 z-0 hidden md:block" />
           <div className="absolute top-[15%] left-[75.5%] w-px h-[70%] bg-white/20 z-0 hidden md:block" />

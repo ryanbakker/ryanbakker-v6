@@ -160,7 +160,7 @@ export function GitHubIcon(props: SVGProps<SVGSVGElement>) {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M8.99917 0C4.02995 0 0 4.1314 0 9.22807C0 13.3045 2.57853 16.7635 6.15488 17.9842C6.60518 18.0686 6.76927 17.7837 6.76927 17.539C6.76927 17.3197 6.76153 16.7397 6.75711 15.9698C4.25372 16.5272 3.72553 14.7326 3.72553 14.7326C3.31612 13.6665 2.72606 13.3827 2.72606 13.3827C1.90891 12.8106 2.78794 12.8219 2.78794 12.8219C3.69128 12.8871 4.16643 13.773 4.16643 13.773C4.96922 15.1829 6.27312 14.7756 6.78585 14.5394C6.86762 13.9435 7.10022 13.5367 7.35713 13.3062C5.35872 13.0728 3.25757 12.2814 3.25757 8.74543C3.25757 7.73764 3.6084 6.91455 4.18411 6.26932C4.09129 6.03593 3.78245 5.09781 4.2725 3.82718C4.2725 3.82718 5.02777 3.57905 6.74717 4.77264C7.46487 4.56814 8.23506 4.46617 9.00027 4.4622C9.76494 4.46617 10.5346 4.56814 11.2534 4.77264C12.9717 3.57905 13.7258 3.82718 13.7258 3.82718C14.217 5.09781 13.9082 6.03593 13.8159 6.26932C14.3927 6.91455 14.7408 7.73764 14.7408 8.74543C14.7408 12.2905 12.6362 13.0706 10.6318 13.2988C10.9545 13.5838 11.2423 14.1469 11.2423 15.0079C11.2423 16.2411 11.2313 17.2364 11.2313 17.539C11.2313 17.7859 11.3937 18.0732 11.8501 17.9831C15.4236 16.76 18 13.3039 18 9.22807C18 4.1314 13.97 0 8.99917 0Z"
-        fill="#1A0E35"
+        fill="currentColor"
       />
     </svg>
   );
@@ -171,7 +171,7 @@ export function SpotifyIcon(props: SVGProps<SVGSVGElement>) {
     <svg {...iconProps} {...props}>
       <path
         d="M9 0C4.02823 0 0 4.02823 0 9C0 13.9718 4.02823 18 9 18C13.9718 18 18 13.9718 18 9C18 4.02823 13.9718 0 9 0ZM12.6544 13.2423C12.502 13.2423 12.4077 13.1952 12.2661 13.1117C10.0016 11.7472 7.36694 11.6891 4.76492 12.2226C4.62339 12.2589 4.43831 12.3169 4.33306 12.3169C3.98105 12.3169 3.75968 12.0375 3.75968 11.7435C3.75968 11.3698 3.98105 11.1919 4.25323 11.1339C7.2254 10.477 10.2629 10.5351 12.854 12.0847C13.0754 12.2262 13.206 12.3532 13.206 12.6835C13.206 13.0137 12.9484 13.2423 12.6544 13.2423ZM13.6306 10.8617C13.4419 10.8617 13.3149 10.7782 13.1843 10.7093C10.9161 9.36653 7.53387 8.82581 4.5254 9.64234C4.35121 9.68952 4.25685 9.73669 4.09355 9.73669C3.70524 9.73669 3.38952 9.42097 3.38952 9.03266C3.38952 8.64435 3.57823 8.38669 3.95202 8.28145C4.96089 7.99839 5.99153 7.7879 7.50121 7.7879C9.85645 7.7879 12.1319 8.37218 13.9246 9.43911C14.2185 9.61331 14.3347 9.83831 14.3347 10.154C14.331 10.546 14.0262 10.8617 13.6306 10.8617ZM14.7556 8.09637C14.5669 8.09637 14.4508 8.04919 14.2875 7.95484C11.7036 6.4125 7.08387 6.04234 4.09355 6.87702C3.9629 6.91331 3.7996 6.97137 3.6254 6.97137C3.14637 6.97137 2.77984 6.59758 2.77984 6.11492C2.77984 5.62137 3.08468 5.34194 3.41129 5.24758C4.68871 4.87379 6.11855 4.69597 7.6754 4.69597C10.3246 4.69597 13.1008 5.24758 15.1294 6.43064C15.4125 6.59395 15.5976 6.81895 15.5976 7.25081C15.5976 7.74435 15.1984 8.09637 14.7556 8.09637Z"
-        fill="#1A0E35"
+        fill="currentColor"
       />
     </svg>
   );
@@ -185,10 +185,11 @@ export function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 37 37"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M8.14938 36.4H0.60125V12.0981H8.14938V36.4ZM4.37125 8.78313C1.95813 8.78313 0 6.78438 0 4.37125C0 3.20938 0.463125 2.10438 1.28375 1.28375C2.10438 0.463125 3.2175 0 4.37125 0C5.525 0 6.63813 0.463125 7.45875 1.28375C8.27938 2.10438 8.7425 3.2175 8.7425 4.37125C8.7425 6.78438 6.78438 8.78313 4.37125 8.78313ZM36.3919 36.4H28.86V24.57C28.86 21.7506 28.8031 18.135 24.9356 18.135C21.0113 18.135 20.41 21.1981 20.41 24.3669V36.4H12.87V12.0981H20.1094V15.4131H20.215C21.2225 13.5038 23.6844 11.4888 27.3569 11.4888C34.9944 11.4888 36.4 16.5181 36.4 23.0506V36.4H36.3919Z"
-        fill="#1A0E35"
+        fill="currentColor"
       />
     </svg>
   );
@@ -202,10 +203,11 @@ export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 39 39"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M19.5043 9.50089C13.9795 9.48349 9.49007 13.9565 9.47267 19.4826C9.45527 25.0086 13.9273 29.4991 19.4521 29.5165C24.977 29.5339 29.4664 25.0609 29.4838 19.5348C29.5012 14.0088 25.0292 9.5183 19.5043 9.50089ZM19.4521 13.0167C23.0368 12.9993 25.9514 15.8972 25.9688 19.4826C25.9862 23.068 23.089 25.9833 19.5043 26.0007C15.9197 26.0181 13.0051 23.1202 12.9877 19.5348C12.9703 15.9494 15.8675 13.0341 19.4521 13.0167ZM27.5784 9.09188C27.5784 7.80392 28.6225 6.75962 29.9101 6.75962C31.1978 6.75962 32.2419 7.80392 32.2419 9.09188C32.2419 10.3798 31.1978 11.4241 29.9101 11.4241C28.6225 11.4241 27.5784 10.3798 27.5784 9.09188ZM38.863 11.4589C38.7151 8.33476 38.0016 5.56739 35.7134 3.28735C33.4339 1.00731 30.6671 0.293707 27.5436 0.137063C24.3244 -0.0456878 14.6756 -0.0456878 11.4564 0.137063C8.34161 0.285005 5.57485 0.998605 3.28661 3.27865C0.998382 5.55869 0.293642 8.32606 0.137033 11.4502C-0.0456776 14.6701 -0.0456776 24.3211 0.137033 27.5411C0.284941 30.6652 0.998382 33.4326 3.28661 35.7126C5.57485 37.9927 8.33291 38.7063 11.4564 38.8629C14.6756 39.0457 24.3244 39.0457 27.5436 38.8629C30.6671 38.715 33.4339 38.0014 35.7134 35.7126C37.9929 33.4326 38.7064 30.6652 38.863 27.5411C39.0457 24.3211 39.0457 14.6788 38.863 11.4589ZM34.7041 30.9959C34.0255 32.7016 32.7117 34.0157 30.9977 34.7032C28.4311 35.7214 22.3407 35.4864 19.5043 35.4864C16.668 35.4864 10.5689 35.7126 8.01099 34.7032C6.30569 34.0244 4.99191 32.7103 4.30457 30.9959C3.28662 28.4287 3.52153 22.337 3.52153 19.5C3.52153 16.663 3.29532 10.5626 4.30457 8.00407C4.98321 6.29839 6.29699 4.98432 8.01099 4.29683C10.5776 3.27865 16.668 3.51361 19.5043 3.51361C22.3407 3.51361 28.4398 3.28735 30.9977 4.29683C32.703 4.97562 34.0168 6.28969 34.7041 8.00407C35.7221 10.5713 35.4872 16.663 35.4872 19.5C35.4872 22.337 35.7221 28.4374 34.7041 30.9959Z"
-        fill="#1A0E35"
+        fill="currentColor"
       />
     </svg>
   );
@@ -369,6 +371,29 @@ export const socialLinks: SocialLink[] = [
   },
 ];
 
+export const HERO_SOCIAL_LINKS = [
+  {
+    href: "https://github.com/ryanbakker",
+    label: "GitHub",
+    Icon: GitHubIcon,
+  },
+  {
+    href: "https://open.spotify.com/user/31cgbozvcwgbz5xhlpjogd32wiqe?si=55cfba08ec2d4bf0",
+    label: "Spotify",
+    Icon: SpotifyIcon,
+  },
+  {
+    href: "https://linkedin.com/in/ryan-bakker",
+    label: "LinkedIn",
+    Icon: LinkedInIcon,
+  },
+  {
+    href: "https://www.instagram.com/rm_bakker/",
+    label: "Instagram",
+    Icon: InstagramIcon,
+  },
+];
+
 export const STACK_DATA: StackItem[] = [
   {
     id: "web",
@@ -462,44 +487,53 @@ export const INSPIRATION_DATA = [
 export const EDUCATION_DATA = [
   {
     title: "Bachelor of Computer & Information Sciences",
-    years: "2025 — Present",
+    completionYears: "2025 — Present",
     focus: "Human-Computer Interaction",
     subjects: {
       primary: "Software Development",
       secondary: "Artifical Intelligence",
       tertiary: "Business & Psychology",
     },
+    primarySubject: "Software Development",
+    secondarySubject: "Artifical Intelligence",
+    tertiarySubject: "Business & Psychology",
     mission:
       "With two diplomas and various experience working in web development, I return with a fresh start. While in an AI bubble, my course selection respects the need for in-depth learning of artificial intelligence. While focusing on all important aspects including mission-critical code, human-computer psychology, and project management.",
-    logo: "/logos/aut.svg",
+    providerLogo: "/logos/aut.svg",
     provider: "AUT",
   },
   {
     title: "Diploma in Web Design & Production",
-    years: "2021 — 2022",
+    completionYears: "2021 — 2022",
     focus: "Full-Stack Development",
     subjects: {
       primary: "Web App Development",
       secondary: "UX/UX Research & Design",
       tertiary: "Website Deployment",
     },
+    primarySubject: "Web App Development",
+    secondarySubject: "UX/UX Research & Design",
+    tertiarySubject: "Website Deployment",
     mission:
       "During this diploma, I studied 4 key topics - UI/UX Design & Development, Advanced Website Design, React.js Web App Development, and WordPress Development with HTML, CSS, and PHP. This gave me the step up from my level 5 diploma, where I wanted to direct my focus on web development. This diploma also lead me to my treasured experience at The Web Guys.",
-    logo: "/logos/yoobee.svg",
+    providerLogo: "/logos/yoobee.svg",
     provider: "Education Provider",
   },
   {
     title: "Diploma in Digital Design",
-    years: "2020",
+    completionYears: "2020",
     focus: "Visual Communication",
     subjects: {
       primary: "Graphic Design",
       secondary: "Web Development",
       tertiary: "Product Design",
     },
+    primarySubject: "Graphic Design",
+    secondarySubject: "Web Development",
+    tertiarySubject: "Product Design",
     mission:
       "This diploma encompassed all things design, from creating pamphlets and product packaging, to creating entire websites using WordPress. I have since looked at this course as the foundation for my experience and knowledge today. It introduced me to a professional approach to web development, as well as working and leading a project-based team.",
-    logo: "/logos/yoobee.svg",
+    providerLogo: "/logos/yoobee.svg",
     provider: "Design School",
   },
 ];

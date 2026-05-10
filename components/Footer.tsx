@@ -21,7 +21,7 @@ function Footer() {
           </text>
         </svg>
 
-        <div className="flex flex-col md:flex-row items-center gap-1 justify-between w-full -mt-6">
+        <div className="flex flex-col md:flex-row items-center gap-2 justify-between w-full -mt-2 md:-mt-6">
           <span>In case you forgot ;)</span>
           <span>All Rights Reserved. 2026.</span>
         </div>

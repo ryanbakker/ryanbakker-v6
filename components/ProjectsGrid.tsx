@@ -3,7 +3,7 @@ import config from "@payload-config";
 import { GridCard } from "./GridCard";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, getMediaUrl } from "@/lib/utils";
 import { OtherProjectsClient } from "./OtherProjectsClient";
 
 interface ProjectsGridProps {
@@ -69,11 +69,7 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
   };
 
   const getFeaturedImageUrl = (project: any) => {
-    const featuredImage = project.projectDetails?.featuredImage;
-    if (featuredImage && typeof featuredImage === "object") {
-      return featuredImage.url || "";
-    }
-    return "";
+    return getMediaUrl(project.projectDetails?.featuredImage);
   };
 
   return (

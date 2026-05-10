@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 
 interface EducationCardProps {
   index?: number;
@@ -37,11 +38,12 @@ function EducationCard({
     opacity: progress,
     transform: `translateY(${(1 - progress) * 15}px)`,
     willChange: "opacity, transform",
-  };
+    };
 
-  const logoUrl = typeof logo === "object" ? logo?.url : logo;
+    const logoUrl = getMediaUrl(logo);
 
-  return (
+    return (
+
     <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-100 text-[#090B23]">
       {/* Education Card Content */}
       <div className="py-3 px-4 md:py-5 md:px-6" style={contentStyle}>
@@ -60,7 +62,7 @@ function EducationCard({
         <hr className="invert opacity-15 my-4 md:my-5" />
 
         <h6 className="font-medium text-sm md:text-base">Mission</h6>
-        <div className="font-crimson text-sm opacity-80 tracking-tight whitespace-pre-wrap md:max-w-[76%]">
+        <div className="font-crimson text-sm opacity-100 tracking-tight whitespace-pre-wrap md:max-w-[76%]">
           {/* Spacer and floated logo for mobile only */}
           <div className="float-right h-16 w-0 md:hidden" />
           <div className="float-right clear-right ml-4 mb-2 pointer-events-none md:hidden">

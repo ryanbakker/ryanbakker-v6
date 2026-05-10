@@ -125,16 +125,16 @@ function ProjectSection({
                     </div>
 
                     {/* 3. Center Number */}
-                    <span className="relative z-10 text-8xl md:text-9xl font-light text-purple-50 md:text-[#220B3B] group-hover:text-white transition-colors duration-500 m-auto w-full h-full text-center flex flex-col items-center justify-center pb-16">
+                    <span className="relative z-10 text-8xl md:text-9xl font-light text-purple-50 md:text-[#220B3B] group-hover:text-white transition-colors duration-500 m-auto w-full h-full text-center flex-col items-center justify-center hidden md:flex md:pb-16">
                       {index + 1}
                     </span>
 
                     {/* 4. Bottom Text Container */}
                     <div className="absolute md:left-4 bottom-2 left-3 md:bottom-4 lg:bottom-6 lg:left-6 z-10 text-left pr-3">
-                      <h5 className="text-xl md:text-2xl font-bold text-transparent group-hover:text-white transition-colors duration-500 line-clamp-2 tracking-tighter">
+                      <h5 className="text-xl md:text-2xl font-bold text-white lg:text-transparent group-hover:text-white transition-colors duration-500 line-clamp-3 md:line-clamp-2 tracking-tighter">
                         {project.title}
                       </h5>
-                      <p className="text-xs md:text-sm text-transparent group-hover:text-neutral-300 transition-colors duration-500 line-clamp-1 pr-2">
+                      <p className="hidden md:block text-sm text-transparent group-hover:text-neutral-300 transition-colors duration-500 line-clamp-1 pr-2">
                         {project.projectDetails?.subtitle}
                       </p>
                     </div>
@@ -146,7 +146,7 @@ function ProjectSection({
             <li className="lg:h-full md:mt-auto lg:mt-0">
               <Link href="/projects" className="shrink-0 lg:h-full block">
                 <div className="group relative overflow-hidden bg-[#220B3B] h-full w-full lg:w-35 flex flex-col items-center lg:justify-between lg:py-12 hover:bg-[#341159] transition-colors duration-300">
-                  <div className="flex-1 flex lg:items-center lg:justify-center">
+                  <div className="flex-1 flex ml-10 lg:ml-0 translate-y-3 lg:translate-y-0 lg:items-center lg:justify-center">
                     <h5 className="lg:rotate-90 text-white text-4xl font-semibold whitespace-nowrap tracking-wide translate-y-6 lg:translate-y-0">
                       View All
                     </h5>

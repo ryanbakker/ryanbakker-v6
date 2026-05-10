@@ -65,7 +65,7 @@ async function ProjectsPage({
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 relative w-full md:w-auto">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-4 md:gap-6 relative w-full md:w-auto">
             {/* 3. Filters - 300ms delay */}
             <div
               className={`${animateClasses} w-full`}

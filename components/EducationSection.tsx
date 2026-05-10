@@ -145,28 +145,31 @@ function EducationSection({
   }, []);
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-transparent">
-      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center pt-6 md:pt-0">
-        <div className="section-child flex flex-col lg:flex-row justify-between items-center lg:gap-24 w-full h-full py-16">
+    <section
+      ref={containerRef}
+      className="relative h-[500vh] lg:h-[300vh] bg-transparent"
+    >
+      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center pt-2 md:pt-0">
+        <div className="section-child flex flex-col lg:flex-row justify-between items-center lg:gap-24 w-full h-full py-10 md:py-16">
           {/* Left Side: Content */}
-          <div className="lg:max-w-[40%] pb-8 z-10">
-            <h3 className="text-xl font-bold mb-3 uppercase tracking-tight text-white">
+          <div className="lg:max-w-[40%] pb-4 lg:pb-8 z-10">
+            <h3 className="text-xl font-bold mb-2 lg:mb-3 uppercase tracking-tight text-white">
               Education
             </h3>
             {quote && (
-              <p className="font-crimson italic text-lg md:text-xl leading-tight text-white max-w-100">
+              <p className="font-crimson italic text-base md:text-xl leading-tight text-white max-w-100">
                 &quot;{quote}&quot; &nbsp; &nbsp; &nbsp; &mdash;&nbsp;{" "}
                 {quoteAuthor}
               </p>
             )}
 
-            <div className="font-inter mt-7 md:mt-8 text-sm! md:text-base leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-3 last:[&_p]:mb-0">
+            <div className="font-inter mt-4 md:mt-8 text-xs! md:text-base leading-5 md:leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-2 lg:[&_p]:mb-3 last:[&_p]:mb-0">
               {bodyText}
             </div>
 
             {extracurricularActivities &&
               extracurricularActivities.length > 0 && (
-                <div className="mt-8 md:mt-12">
+                <div className="mt-6 md:mt-12 hidden md:block">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-3">
                     Extracurricular
                   </h4>
@@ -185,8 +188,8 @@ function EducationSection({
           </div>
 
           {/* Right Side: Animated Cards */}
-          <div className="w-full lg:w-[55%] flex flex-col gap-5 md:gap-10">
-            <div className="relative w-full h-112.5 flex items-center justify-center overflow-visible">
+          <div className="w-full lg:w-[55%] flex flex-col gap-4 md:gap-10">
+            <div className="relative w-full h-130 sm:h-112.5 flex items-center justify-center overflow-visible">
               {educationItems.map((edu, index) => (
                 <StackingCard
                   key={index}
@@ -199,7 +202,7 @@ function EducationSection({
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full flex justify-center mb-4">
+            <div className="w-full flex justify-center mb-2">
               <div className="h-0.5 w-1/4 bg-white/30 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-white rounded-full"

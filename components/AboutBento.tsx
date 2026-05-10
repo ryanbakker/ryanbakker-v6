@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 
 function AboutBento({ data }: { data?: any }) {
   const bentoData = data.data;
@@ -15,7 +16,7 @@ function AboutBento({ data }: { data?: any }) {
       {/* 1. Hero Block (Top on mobile, spans both md columns) */}
       <div className="bento-cell bento-cell-img-hero md:col-span-2 md:col-start-1 md:row-span-4 lg:col-span-2 lg:row-span-6 lg:col-start-1 lg:row-start-1 flex items-end">
         <Image
-          src={bentoData.aboutHeroImage.url}
+          src={getMediaUrl(bentoData.aboutHeroImage)}
           alt={bentoData.aboutHeroImage.alt}
           fill
           priority
@@ -35,7 +36,7 @@ function AboutBento({ data }: { data?: any }) {
       {/* 7. Cloud Image */}
       <div className="bento-cell bento-cell-img md:col-span-1 md:col-start-1 md:row-span-4 lg:col-span-1 lg:row-span-6 lg:col-start-2 lg:row-start-7">
         <Image
-          src={bentoData.aboutDeveloperImage.url}
+          src={getMediaUrl(bentoData.aboutDeveloperImage)}
           alt={bentoData.aboutDeveloperImage.alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -52,7 +53,7 @@ function AboutBento({ data }: { data?: any }) {
       {/* 4. Circle Image (Auckland Skyline) */}
       <div className="bento-cell bento-cell-img md:col-span-1 md:col-start-1 md:row-span-4 lg:col-span-1 lg:row-span-6 lg:col-start-3 lg:row-start-4">
         <Image
-          src={bentoData.aboutStudentImage.url}
+          src={getMediaUrl(bentoData.aboutStudentImage)}
           alt={bentoData.aboutStudentImage.alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -73,7 +74,7 @@ function AboutBento({ data }: { data?: any }) {
       {/* 9. Desert Image */}
       <div className="bento-cell bento-cell-img md:col-span-1 md:col-start-2 md:row-span-4 lg:col-span-1 lg:row-span-6 lg:col-start-4 lg:row-start-7">
         <Image
-          src={bentoData.aboutCreativeImage.url}
+          src={getMediaUrl(bentoData.aboutCreativeImage)}
           alt={bentoData.aboutCreativeImage.alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -90,7 +91,7 @@ function AboutBento({ data }: { data?: any }) {
       {/* 10. Small Sunset Image */}
       <div className="bento-cell bento-cell-img-sm md:col-span-1 md:col-start-2 md:row-span-2 lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-11">
         <Image
-          src={bentoData.aboutSmallImage.url}
+          src={getMediaUrl(bentoData.aboutSmallImage)}
           alt={bentoData.aboutSmallImage.alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

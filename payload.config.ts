@@ -10,6 +10,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Media } from "@/payload-types";
@@ -20,14 +20,33 @@ function InspoSection({
   inspirations?: Inspiration[] | null;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle responsive check & prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Tailwind's 'md' breakpoint is 768px
+    };
+
+    // Check on mount
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const displayInspirations = inspirations || [];
-  const hasMore = displayInspirations.length > 8;
 
-  // Items 1-7 are static
-  const staticItems = displayInspirations.slice(0, 7);
-  // Items from 8 onwards are dynamic
-  const dynamicItems = displayInspirations.slice(7);
+  // 3 items + 1 button = 4 on mobile
+  // 7 items + 1 button = 8 on md and up
+  // Defaulting to 7 for the server render to match desktop first
+  const staticCount = mounted && isMobile ? 3 : 7;
+  const hasMore = displayInspirations.length > staticCount;
+
+  const staticItems = displayInspirations.slice(0, staticCount);
+  const dynamicItems = displayInspirations.slice(staticCount);
 
   return (
     <section className="section-parent pt-18 pb-28 radial-lavendar overflow-hidden">
@@ -45,7 +64,7 @@ function InspoSection({
             transition={{ duration: 0.4, ease: "circOut" }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full"
           >
-            {/* Always visible 7 items */}
+            {/* Always visible static items */}
             {staticItems.map((item, index) => {
               const imageUrl =
                 typeof item.image === "object"
@@ -165,7 +184,8 @@ function InspoSection({
                           </svg>
                         </div>
                         <span className="relative z-10 text-6xl font-light text-neutral-400 group-hover:text-white transition-colors duration-500">
-                          {String(index + 8).padStart(2, "0")}
+                          {/* Dynamically assign numbers based on the active static limit */}
+                          {String(index + staticCount + 1).padStart(2, "0")}
                         </span>
                         <div className="absolute left-4 bottom-4 z-10 text-left">
                           <h5 className="text-lg font-bold text-neutral-900 group-hover:text-white transition-colors duration-500">
