@@ -128,7 +128,7 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
             key={project.id}
             href={`/projects/${project.projectBehaviour.slug}`}
             // 4. Added animate-in classes here
-            className="col-span-1 md:col-span-2 block row-span-1 transition-transform hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+            className="col-span-1 md:col-span-2 row-span-1 transition-transform hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
             // 5. Staggered delay: index 0 = 150ms, index 1 = 300ms
             style={{
               animationDelay: `${(index + 1) * 150}ms`,
@@ -136,19 +136,27 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
             }}
             passHref
           >
-            <GridCard className="overflow-hidden group h-full">
+            <GridCard className="overflow-hidden group">
               {getFeaturedImageUrl(project) && (
-                <Image
-                  src={getFeaturedImageUrl(project)}
-                  alt={project.title}
-                  height={300}
-                  width={400}
-                  className="object-cover md:max-w-[50%] ml-auto rounded-2xl shadow-xl"
-                />
+                <>
+                  <Image
+                    src={getFeaturedImageUrl(project)}
+                    alt={project.title}
+                    height={300}
+                    width={400}
+                    className="block md:hidden object-cover md:max-w-[50%]! ml-auto rounded-2xl shadow-xl"
+                  />
+                  <Image
+                    src={getFeaturedImageUrl(project)}
+                    alt={project.title}
+                    fill
+                    className="object-cover md:max-w-[50%]! ml-auto rounded-2xl shadow-xl hidden md:block"
+                  />
+                </>
               )}
 
               <div
-                className={`relative flex flex-col mt-3 md:mt-0 md:justify-end h-full z-10 pl-1 pb-2 ${getFeaturedImageUrl(project) ? "md:max-w-[50%]" : ""}`}
+                className={`relative flex flex-col mt-3 md:mt-0 md:justify-end h-full z-10 pl-1 pb-2 ${getFeaturedImageUrl(project) ? "md:max-w-[50%]!" : ""}`}
               >
                 <h3 className="text-2xl font-bold leading-7 tracking-[-4%] line-clamp-2">
                   {project.title}
