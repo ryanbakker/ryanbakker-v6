@@ -24,7 +24,7 @@ export function GridCard({
     variant === "small" ? "rounded-[25px]" : "rounded-[35px]";
 
   return (
-    <div className={cn("relative p-4 shadow-xl", className)}>
+    <div className={cn("relative p-4 shadow-xl z-50", className)}>
       {/* 
           Hidden SVG to define the filter. 
           Using filterUnits="objectBoundingBox" and primitiveUnits="userSpaceOnUse"

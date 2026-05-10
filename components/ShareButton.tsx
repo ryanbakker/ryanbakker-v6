@@ -38,7 +38,7 @@ export function ShareButton() {
         size="icon"
         title="Share Project"
       >
-        <Share className="text-neutral-400 group-hover:text-white transition-colors" />
+        <Share className="text-[#220B3B] group-hover:text-white transition-colors" />
       </Button>
     </div>
   );

@@ -186,7 +186,7 @@ function EducationSection({
 
           {/* Right Side: Animated Cards */}
           <div className="w-full lg:w-[55%] flex flex-col gap-5 md:gap-10">
-            <div className="relative w-full h-[450px] flex items-center justify-center overflow-visible">
+            <div className="relative w-full h-112.5 flex items-center justify-center overflow-visible">
               {educationItems.map((edu, index) => (
                 <StackingCard
                   key={index}

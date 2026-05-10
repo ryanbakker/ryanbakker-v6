@@ -42,7 +42,7 @@ const buttonVariants = cva(
 
         // From Uiverse.io by vinodjangid07 - A glass-like icon button with a rotating background layer
         "glass-icon":
-          "relative bg-transparent border-none p-0 overflow-visible isolate before:absolute before:inset-0 before:bg-[#F7E9FF] before:rounded-[7px] before:z-[-1] before:transition-all before:duration-300 hover:before:rotate-[35deg] hover:before:origin-bottom hover:before:bg-[#FFE2C7] [&>div]:border [&>div]:border-purple-400/20 [&>div]:rounded-[7px] [&>div]:transition-all [&>div]:duration-300 hover:[&>div]:bg-purple-400/10 hover:[&>div]:backdrop-blur-[4px] [&_svg]:invert [&_svg]:transition-all",
+          "relative bg-transparent border-none p-0 overflow-visible isolate before:absolute before:inset-0 before:bg-[#F7E9FF] before:rounded-[7px] before:z-[-1] before:transition-all before:duration-300 hover:before:rotate-[35deg] hover:before:origin-bottom hover:before:bg-[#FFE2C7] [&>div]:border [&>div]:border-purple-400/20 [&>div]:rounded-[7px] [&>div]:transition-all [&>div]:duration-300 hover:[&>div]:bg-purple-400/10 hover:[&>div]:backdrop-blur-[4px] [&_svg]:transition-all",
       },
       size: {
         default:

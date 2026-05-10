@@ -35,7 +35,7 @@ function TechSection({
           <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 grid-rows-auto gap-5 md:gap-x-6 md:gap-y-8">
             {/* Cell 1: Header */}
             <div
-              className={`flex flex-col justify-center items-center font-bold text-3xl tracking-widest text-white transition-colors duration-500 ${theme.cellClass} py-8 h-full min-h-[160px]`}
+              className={`flex flex-col justify-center items-center font-bold text-3xl tracking-widest text-white transition-colors duration-500 ${theme.cellClass} py-8 h-full min-h-40`}
             >
               <h4 className="border-t-4 border-b-4 border-white py-1 text-center leading-tight flex flex-col items-center gap-1 font-black">
                 TECH <span className="h-1 w-[90%] bg-white rounded-none" />{" "}

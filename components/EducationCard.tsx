@@ -42,7 +42,7 @@ function EducationCard({
   const logoUrl = typeof logo === "object" ? logo?.url : logo;
 
   return (
-    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-[400px] text-[#090B23]">
+    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-100 text-[#090B23]">
       {/* Education Card Content */}
       <div className="py-3 px-4 md:py-5 md:px-6" style={contentStyle}>
         <h4 className="text-xl md:text-2xl font-bold">{title}</h4>

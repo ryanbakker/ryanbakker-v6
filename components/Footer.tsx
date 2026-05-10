@@ -4,7 +4,7 @@ function Footer() {
       <div className="section-child py-0! w-full">
         <svg
           viewBox="0 0 1004 200"
-          className="w-[101%] h-[40vh] min-h-[200px] -ml-1 md:-ml-3"
+          className="w-[101%] h-[40vh] min-h-50 -ml-1 md:-ml-3"
           preserveAspectRatio="none"
           aria-label="Ryan Bakker"
         >

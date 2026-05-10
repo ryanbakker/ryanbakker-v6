@@ -5,13 +5,14 @@ export interface Project {
   title: string;
   projectBehaviour: {
     slug: string;
-    isFeatured?: boolean;
-    isHighlighted?: boolean;
+    isFeatured?: boolean | null;
+    isHighlighted?: boolean | null;
   };
   projectDetails?: {
     subtitle?: string | null;
     featuredImage?:
       | string
+      | number
       | {
           url?: string | null;
           alt?: string | null;
@@ -22,6 +23,7 @@ export interface Project {
     | {
         image:
           | string
+          | number
           | {
               url?: string | null;
               alt?: string | null;
@@ -56,18 +58,22 @@ function ProjectSection({
             {displayProjects.map((project, index) => {
               // 1. Resolve Featured Image URL
               const featuredImg = project.projectDetails?.featuredImage;
-              let imageUrl =
-                typeof featuredImg === "object"
-                  ? featuredImg?.url
-                  : featuredImg;
+              let imageUrl: string | null | undefined =
+                typeof featuredImg === "string"
+                  ? featuredImg
+                  : typeof featuredImg === "object" && featuredImg !== null
+                    ? (featuredImg as { url?: string | null }).url
+                    : undefined;
 
               // 2. Fallback to first image in gallery if featuredImage is missing
               if (!imageUrl && project.images?.[0]?.image) {
                 const fallbackImg = project.images[0].image;
                 imageUrl =
-                  typeof fallbackImg === "object"
-                    ? fallbackImg?.url
-                    : fallbackImg;
+                  typeof fallbackImg === "string"
+                    ? fallbackImg
+                    : typeof fallbackImg === "object" && fallbackImg !== null
+                      ? (fallbackImg as { url?: string | null }).url
+                      : undefined;
               }
 
               // 3. Ensure the slug exists for the link
@@ -78,14 +84,14 @@ function ProjectSection({
               return (
                 <li
                   key={project.projectBehaviour?.slug || index}
-                  className="group relative flex-1 h-full overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-transparent w-full min-h-[200px] md:min-h-50vh"
+                  className="group relative flex-1 h-full overflow-hidden cursor-pointer flex flex-col justify-center items-center transition-all duration-500 bg-transparent w-full min-h-50 md:min-h-50vh"
                 >
                   <Link href={link} className="block h-full w-full relative">
                     {/* Background Image logic remains the same */}
                     <div className="absolute inset-0 z-0 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
                       {imageUrl && (
                         <Image
-                          src={project.projectDetails?.featuredImage?.url}
+                          src={imageUrl}
                           alt={
                             typeof featuredImg === "object"
                               ? featuredImg?.alt || project.title
@@ -124,7 +130,7 @@ function ProjectSection({
                     </span>
 
                     {/* 4. Bottom Text Container */}
-                    <div className="absolute md:left-4 bottom-2 left-3 md:bottom-4 lg:bottom-6 lg:left-6 z-10 text-left pr-2">
+                    <div className="absolute md:left-4 bottom-2 left-3 md:bottom-4 lg:bottom-6 lg:left-6 z-10 text-left pr-3">
                       <h5 className="text-xl md:text-2xl font-bold text-transparent group-hover:text-white transition-colors duration-500 line-clamp-2 tracking-tighter">
                         {project.title}
                       </h5>

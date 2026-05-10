@@ -85,7 +85,7 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
             href={`/projects/${featuredProject.projectBehaviour.slug}`}
             passHref
             // 1. Added animate-in classes here
-            className="col-span-1 md:col-span-2 row-span-2 h-full transition-transform duration-500 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+            className="col-span-1 md:col-span-2 row-span-2 h-full transition-transform duration-500 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out"
             // 2. Hardcoded 0ms delay so it loads instantly
             style={{ animationDelay: "0ms", animationFillMode: "both" }}
           >
@@ -96,13 +96,13 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
                   alt={featuredProject.title}
                   fill
                   objectPosition="top"
-                  className="object-cover rounded-3xl max-h-[80%] shadow-xl"
+                  className="object-cover rounded-3xl max-h-[75%] md:max-h-[80%] shadow-xl"
                 />
               )}
 
               <div className="relative flex flex-row justify-between items-end h-full z-10 pb-1.5">
                 <div className="w-full">
-                  <h2 className="text-2xl font-bold leading-6 -tracking-[4%] line-clamp-2">
+                  <h2 className="text-2xl font-bold leading-6 tracking-[-4%] line-clamp-2">
                     {featuredProject.title}
                   </h2>
                   <p className="text-sm opacity-80 font-light">
@@ -128,7 +128,7 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
             key={project.id}
             href={`/projects/${project.projectBehaviour.slug}`}
             // 4. Added animate-in classes here
-            className="col-span-1 md:col-span-2 row-span-1 transition-transform hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+            className="col-span-1 md:col-span-2 block row-span-1 transition-transform hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
             // 5. Staggered delay: index 0 = 150ms, index 1 = 300ms
             style={{
               animationDelay: `${(index + 1) * 150}ms`,
@@ -141,15 +141,16 @@ async function ProjectsGrid({ activeTags }: ProjectsGridProps) {
                 <Image
                   src={getFeaturedImageUrl(project)}
                   alt={project.title}
-                  fill
-                  className="object-cover max-w-[50%] ml-auto rounded-2xl shadow-xl"
+                  height={300}
+                  width={400}
+                  className="object-cover md:max-w-[50%] ml-auto rounded-2xl shadow-xl"
                 />
               )}
 
               <div
-                className={`relative flex flex-col justify-end h-full z-10 pl-1 pb-2 ${getFeaturedImageUrl(project) ? "max-w-[50%]" : ""}`}
+                className={`relative flex flex-col mt-3 md:mt-0 md:justify-end h-full z-10 pl-1 pb-2 ${getFeaturedImageUrl(project) ? "md:max-w-[50%]" : ""}`}
               >
-                <h3 className="text-2xl font-bold leading-7 -tracking-[4%] line-clamp-2">
+                <h3 className="text-2xl font-bold leading-7 tracking-[-4%] line-clamp-2">
                   {project.title}
                 </h3>
                 <p className="text-sm opacity-80 font-light pt-2.5">

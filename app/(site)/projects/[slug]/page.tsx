@@ -53,18 +53,29 @@ export default async function ProjectSinglePage({ params }: PageProps) {
               </Button>
             </Link>
 
-            <h1 className="text-white font-extrabold text-3xl md:text-[45px] leading-tight md:leading-12 uppercase line-clamp-2 w-full">
+            <h1 className="text-white font-extrabold text-3xl md:text-[45px] leading-tight tracking-tighter md:leading-12 uppercase line-clamp-2 w-full">
               {project.title}
             </h1>
           </div>
 
           <div className="max-w-6xl mx-auto mt-4 pt-8 md:pt-12 pb-12 md:pb-18 relative mb-4">
-            {/* Radial Blue background that goes to the halfway point of this container */}
-            <VantaBackground
-              foreground="#14224C"
-              background="#0A0C24"
-              className="absolute -top-90 bottom-1/2 left-1/2 -translate-x-1/2 w-screen h-screen -z-10 pointer-events-none drop-shadow-xl"
-            />
+            {/* Background elements container that defines the bounds of the purple card */}
+            <div className="absolute left-1 md:left-3.75 top-1 md:top-2.5 right-1 md:right-6.25 bottom-1 md:bottom-7.5 pointer-events-none">
+              <VantaBackground
+                foreground="#14224C"
+                background="#0A0C24"
+                className="absolute -top-90 bottom-1/2 left-1/2 -translate-x-1/2 w-screen -z-10 drop-shadow-xl"
+              />
+
+              <div
+                className="absolute inset-0 z-30 rounded-[24px] md:rounded-[40px]"
+                style={{
+                  background:
+                    "linear-gradient(205deg, #D78EFF 0%, rgba(179, 122, 240, 0.8) 3.84%, rgba(37, 50, 104, 0.8) 33.65%, #290046 72.11%)",
+                  filter: "url(#project-bg-filter)",
+                }}
+              />
+            </div>
 
             <svg width="0" height="0" className="absolute" aria-hidden="true">
               <defs>
@@ -158,15 +169,6 @@ export default async function ProjectSinglePage({ params }: PageProps) {
             </svg>
 
             <div
-              className="absolute left-1 md:left-3.75 top-1 md:top-2.5 right-1 md:right-6.25 bottom-1 md:bottom-7.5 z-30 rounded-[24px] md:rounded-[40px] pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(205deg, #D78EFF 0%, rgba(179, 122, 240, 0.8) 3.84%, rgba(37, 50, 104, 0.8) 33.65%, #290046 72.11%)",
-                filter: "url(#project-bg-filter)",
-              }}
-            />
-
-            <div
               className={cn(
                 "max-w-5xl mx-auto z-50 relative text-white flex flex-col gap-10 w-full px-6 md:px-0",
                 hasArticle ? "items-start" : "md:flex-row md:items-center",
@@ -254,7 +256,7 @@ export default async function ProjectSinglePage({ params }: PageProps) {
                   )}
                 >
                   <h3>Description</h3>
-                  <p>{project.projectDetails.description}</p>
+                  <p>{project.projectDetails?.description}</p>
                 </div>
 
                 <div

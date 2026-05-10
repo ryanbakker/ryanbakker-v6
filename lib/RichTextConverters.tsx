@@ -2,7 +2,6 @@ import React from "react";
 import {
   defaultJSXConverters,
   JSXConverters,
-  SerializedBlockNode,
 } from "@payloadcms/richtext-lexical/react";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import Image from "next/image";
@@ -19,8 +18,8 @@ const SubBlockRenderer = ({ block }: { block: any }) => {
         <RichText data={block.content} converters={jsxConverters} />
       ) : null;
     case "image-block": {
-      const media = block.image as Media;
-      if (!media?.url) return null;
+      const media = block.image;
+      if (!media || typeof media === "number" || !media.url) return null;
       return (
         <div className="my-1 group">
           <div className="relative w-full aspect-video">
@@ -84,54 +83,46 @@ export const jsxConverters: JSXConverters = {
   ...defaultJSXConverters,
   blocks: {
     ...defaultJSXConverters.blocks,
-    "two-column": ({
-      node,
-    }: {
-      node: SerializedBlockNode<TwoColumnBlockType>;
-    }) => {
+    "two-column": ({ node }: { node: any }) => {
       const { leftColumn, rightColumn } = node.fields;
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
           <div className="flex flex-col gap-4">
-            {leftColumn?.map((block, i) => (
+            {leftColumn?.map((block: any, i: number) => (
               <SubBlockRenderer key={i} block={block} />
             ))}
           </div>
           <div className="flex flex-col gap-4">
-            {rightColumn?.map((block, i) => (
+            {rightColumn?.map((block: any, i: number) => (
               <SubBlockRenderer key={i} block={block} />
             ))}
           </div>
         </div>
       );
     },
-    "three-column": ({
-      node,
-    }: {
-      node: SerializedBlockNode<ThreeColumnBlockType>;
-    }) => {
+    "three-column": ({ node }: { node: any }) => {
       const { leftColumn, centerColumn, rightColumn } = node.fields;
       return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8">
           <div className="flex flex-col gap-4">
-            {leftColumn?.map((block, i) => (
+            {leftColumn?.map((block: any, i: number) => (
               <SubBlockRenderer key={i} block={block} />
             ))}
           </div>
           <div className="flex flex-col gap-4">
-            {centerColumn?.map((block, i) => (
+            {centerColumn?.map((block: any, i: number) => (
               <SubBlockRenderer key={i} block={block} />
             ))}
           </div>
           <div className="flex flex-col gap-4">
-            {rightColumn?.map((block, i) => (
+            {rightColumn?.map((block: any, i: number) => (
               <SubBlockRenderer key={i} block={block} />
             ))}
           </div>
         </div>
       );
     },
-    "Call To Action": ({ node }: { node: SerializedBlockNode<any> }) => {
+    "Call To Action": ({ node }: { node: any }) => {
       const { heading, link } = node.fields;
       return (
         <div className="my-12 p-8 rounded-3xl bg-linear-to-br from-purple-600/20 to-blue-600/20 border border-white/10 flex flex-col items-center text-center gap-6">
@@ -149,38 +140,37 @@ export const jsxConverters: JSXConverters = {
         </div>
       );
     },
-    code: ({ node }: { node: SerializedBlockNode<any> }) => {
-      // This is for the built-in CodeBlock feature
-      return (
-        <pre className="my-6 p-4 rounded-lg bg-neutral-800 border border-white/10 overflow-x-auto">
-          <code className="text-sm font-mono text-neutral-200">
-            {node.fields.code}
-          </code>
-        </pre>
-      );
-    },
-    upload: ({ node }: { node: any }) => {
-      const media = node.value as Media;
-      if (!media?.url) return null;
+  },
+  code: ({ node }: { node: any }) => {
+    return (
+      <pre className="my-6 p-4 rounded-lg bg-neutral-800 border border-white/10 overflow-x-auto">
+        <code className="text-sm font-mono text-neutral-200">
+          {node.fields?.code || node.text}
+        </code>
+      </pre>
+    );
+  },
+  upload: ({ node }: { node: any }) => {
+    const media = node.value as Media;
+    if (!media || typeof media === "number" || !media.url) return null;
 
-      if (media.mimeType?.startsWith("image/")) {
-        return (
-          <div className="my-1s group">
-            <div className="relative w-full aspect-video">
-              <Image
-                src={media.url}
-                alt={media.alt || ""}
-                fill
-                className="object-cover"
-              />
-              <p className="text-xs italic text-neutral-500 mb-2 transition-colors duration-300 group-hover:text-white">
-                {media.alt || "Project image"}
-              </p>
-            </div>
+    if (media.mimeType?.startsWith("image/")) {
+      return (
+        <div className="my-1 group">
+          <div className="relative w-full aspect-video">
+            <Image
+              src={media.url}
+              alt={media.alt || ""}
+              fill
+              className="object-cover"
+            />
+            <p className="text-xs italic text-neutral-500 mb-2 transition-colors duration-300 group-hover:text-white">
+              {media.alt || "Project image"}
+            </p>
           </div>
-        );
-      }
-      return null;
-    },
+        </div>
+      );
+    }
+    return null;
   },
 };

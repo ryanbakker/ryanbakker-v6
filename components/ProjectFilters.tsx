@@ -67,8 +67,8 @@ export function ProjectFilters({
       </Button>
 
       {isOpen && (
-        <div className="absolute top-15 right-0 min-h-25 w-full md:w-93 z-50 rounded-lg bg-neutral-900/95 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm">
-          <div className="flex flex-col h-full">
+        <div className="absolute top-15 right-0 min-h-25 w-full md:w-93 z-100 rounded-lg bg-neutral-900/95 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm">
+          <div className="flex flex-col h-full relative z-90">
             <div className="flex flex-wrap gap-2 mb-4">
               {availableTags.map((tag) => {
                 const isActive = activeTags.includes(tag);

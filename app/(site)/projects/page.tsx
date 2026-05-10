@@ -44,7 +44,7 @@ async function ProjectsPage({
       glowIntensity={1.2}
     >
       <main className="h-full w-full overflow-y-auto overflow-x-hidden text-white relative z-10 pb-16">
-        <section className="max-w-6xl flex flex-col md:flex-row md:justify-between md:items-end md:mx-auto mt-24 gap-8 px-4 md:px-5 lg:px-0">
+        <section className="max-w-6xl flex flex-col md:flex-row md:justify-between md:items-end md:mx-auto mt-12 md:mt-24 gap-8 px-4 md:px-5 lg:px-0">
           <div className="w-full">
             {/* 1. Title - Loads instantly (0ms) */}
             <h1
@@ -56,7 +56,7 @@ async function ProjectsPage({
 
             {/* 2. Subtitle - Loads shortly after (150ms) */}
             <p
-              className={`font-light tracking-[2%] text-sm max-w-100 mt-4 ${animateClasses}`}
+              className={`font-light tracking-[2%] text-sm max-w-100 mt-2 md:mt-4 ${animateClasses}`}
               style={{ animationDelay: "150ms", animationFillMode: "both" }}
             >
               Some of my past projects, ranging from Web Development to
@@ -68,7 +68,7 @@ async function ProjectsPage({
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 relative w-full md:w-auto">
             {/* 3. Filters - 300ms delay */}
             <div
-              className={animateClasses}
+              className={`${animateClasses} w-full`}
               style={{ animationDelay: "300ms", animationFillMode: "both" }}
             >
               <ProjectFilters

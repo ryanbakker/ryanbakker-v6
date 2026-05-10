@@ -72,7 +72,7 @@ export function OtherProjectsClient({
             animationFillMode: "both",
           }}
           // 3. Added the shadcn animate-in classes for a smooth upward fade
-          className="col-span-1 row-span-1 block rounded-2xl transition-transform hover:-translate-y-2 duration-400 ease-out animate-in fade-in slide-in-from-bottom-8 ease-out duration-700"
+          className="col-span-1 row-span-1 block rounded-2xl transition-transform hover:-translate-y-2 ease-out animate-in fade-in slide-in-from-bottom-8 duration-700"
         >
           <GridCard className="overflow-hidden h-78" variant="small">
             {getFeaturedImageUrl(project) && (
@@ -106,8 +106,13 @@ export function OtherProjectsClient({
       ))}
 
       {visibleCount < otherProjects.length && (
-        <div className="col-span-1 md:col-span-2 lg:col-span-4 flex justify-center pt-8">
-          <Button onClick={handleLoadMore} size="lg" variant="refined-outline">
+        <div className="col-span-1 md:col-span-2 lg:col-span-4 flex justify-center pt-8 w-full md:w-fit">
+          <Button
+            onClick={handleLoadMore}
+            size="lg"
+            variant="refined-outline"
+            className="w-full md:w-fit"
+          >
             Load More Projects
           </Button>
         </div>

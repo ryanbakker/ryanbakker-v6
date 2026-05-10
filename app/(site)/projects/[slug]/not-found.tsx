@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <main className="min-h-screen w-full flex flex-col items-center justify-center radial-purple text-white px-4 relative overflow-hidden">
       {/* Decorative background element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-purple-600/10 rounded-full blur-[120px] -z-10" />
 
       <div className="max-w-2xl w-full text-center space-y-8 relative z-10">
         <div className="flex justify-center mb-4">
