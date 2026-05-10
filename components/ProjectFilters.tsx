@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Funnel, X } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -16,9 +16,37 @@ export function ProjectFilters({
   activeTags,
 }: ProjectFiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleEsc);
+    }
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen]);
+
+  // Close on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   const onButtonPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -54,7 +82,7 @@ export function ProjectFilters({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full z-100" ref={containerRef}>
       <Button
         size="lg"
         variant="refined-outline"
@@ -67,7 +95,7 @@ export function ProjectFilters({
       </Button>
 
       {isOpen && (
-        <div className="absolute top-15 right-0 min-h-25 w-full md:w-93 z-100 rounded-lg bg-neutral-900/95 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm">
+        <div className="absolute top-15 right-0 min-h-25 w-full md:w-93 z-100 rounded-lg bg-neutral-900 border border-neutral-800 p-4 shadow-2xl backdrop-blur-sm animate-in fade-in zoom-in-95 duration-200">
           <div className="flex flex-col h-full relative z-90">
             <div className="flex flex-wrap gap-2 mb-4">
               {availableTags.map((tag) => {

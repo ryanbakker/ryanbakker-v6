@@ -44,7 +44,7 @@ async function ProjectsPage({
       glowIntensity={1.2}
     >
       <main className="h-full w-full overflow-y-auto overflow-x-hidden text-white relative z-10 pb-16">
-        <section className="max-w-6xl flex flex-col md:flex-row md:justify-between md:items-end md:mx-auto mt-12 md:mt-24 gap-8 px-4 md:px-5 lg:px-0">
+        <section className="max-w-6xl flex flex-col md:flex-row md:justify-between md:items-end md:mx-auto mt-12 md:mt-24 gap-8 px-4 md:px-5 lg:px-0 relative z-50">
           <div className="w-full">
             {/* 1. Title - Loads instantly (0ms) */}
             <h1
