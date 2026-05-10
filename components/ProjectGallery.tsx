@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Media } from "@/payload-types";
 import { Button } from "./ui/button";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ChevronRight, X } from "lucide-react";
 
 interface ProjectGalleryProps {
   images?:
