@@ -7,6 +7,7 @@ import { Projects } from "./collections/Projects.ts";
 import { ProjectsContent } from "./collections/ProjectsContent.ts";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -30,6 +31,14 @@ export default buildConfig({
     // By not providing transport options, it stays in "log to console" mode
     // but satisfies Payload that an adapter is present.
   }),
+  plugins: [
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || "",
+    }),
+  ],
   // If you want to resize images, crop, set focal point, etc.
   // make sure to install it and pass it to the config.
   // This is optional - if you don't need to do these things,
