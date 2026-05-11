@@ -716,6 +716,7 @@ export function HeroSection({ data }: { data?: any }) {
             nx={tilt.nx}
             ny={tilt.ny}
             tracking={tilt.tracking}
+            intensity={0}
             verticalTiltScale={TILT_VERTICAL_SCALE_NON_MAIN}
             className="block translate-x-[-11%]"
           >
@@ -733,6 +734,7 @@ export function HeroSection({ data }: { data?: any }) {
             nx={tilt.nx}
             ny={tilt.ny}
             tracking={tilt.tracking}
+            intensity={0}
             verticalTiltScale={TILT_VERTICAL_SCALE_NON_MAIN}
             className="block"
           >
@@ -750,6 +752,7 @@ export function HeroSection({ data }: { data?: any }) {
             nx={tilt.nx}
             ny={tilt.ny}
             tracking={tilt.tracking}
+            intensity={0}
             verticalTiltScale={TILT_VERTICAL_SCALE_NON_MAIN}
             className="block translate-x-[-6%]"
           >

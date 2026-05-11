@@ -44,13 +44,13 @@ function EducationCard({
 
     return (
 
-    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-100 text-[#090B23]">
+    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-[380px] text-[#090B23]">
       {/* Education Card Content */}
       <div className="py-3 px-4 md:py-5 md:px-6" style={contentStyle}>
         <h4 className="text-xl md:text-2xl font-bold">{title}</h4>
         <p className="text-sm md:text-base font-semibold opacity-70">{years}</p>
 
-        <h5 className="italic text-base md:text-lg my-3">Focus: {focus}</h5>
+        <h5 className="italic text-base md:text-lg my-2 md:my-3">Focus: {focus}</h5>
 
         <h6 className="font-bold text-xs md:text-sm">Subjects</h6>
         <ul className="opacity-70 font-medium">
@@ -59,7 +59,7 @@ function EducationCard({
           <li className="text-sm md:text-base">{subjects.tertiary}</li>
         </ul>
 
-        <hr className="invert opacity-15 my-4 md:my-5" />
+        <hr className="invert opacity-15 my-3 md:my-5" />
 
         <h6 className="font-medium text-sm md:text-base">Mission</h6>
         <div className="font-crimson text-sm opacity-100 tracking-tight whitespace-pre-wrap md:max-w-[76%]">

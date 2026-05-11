@@ -150,10 +150,10 @@ function EducationSection({
       className="relative h-[500vh] lg:h-[300vh] bg-transparent"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center pt-2 md:pt-0">
-        <div className="section-child flex flex-col lg:flex-row justify-between items-center lg:gap-24 w-full h-full py-10 md:py-16">
+        <div className="section-child flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-6 lg:gap-24 w-full h-full py-6 md:py-16">
           {/* Left Side: Content */}
-          <div className="lg:max-w-[40%] pb-4 lg:pb-8 z-10">
-            <h3 className="text-xl font-bold mb-2 lg:mb-3 uppercase tracking-tight text-white">
+          <div className="lg:max-w-[40%] pb-2 lg:pb-8 z-10 text-center lg:text-left">
+            <h3 className="text-xl font-bold mb-1.5 lg:mb-3 uppercase tracking-tight text-white">
               Education
             </h3>
             {quote && (
@@ -163,7 +163,7 @@ function EducationSection({
               </p>
             )}
 
-            <div className="font-inter mt-4 md:mt-8 text-xs! md:text-base leading-5 md:leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-2 lg:[&_p]:mb-3 last:[&_p]:mb-0">
+            <div className="font-inter mt-3 md:mt-8 text-xs! md:text-base leading-5 md:leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-1.5 lg:[&_p]:mb-3 last:[&_p]:mb-0">
               {bodyText}
             </div>
 
@@ -189,7 +189,7 @@ function EducationSection({
 
           {/* Right Side: Animated Cards */}
           <div className="w-full lg:w-[55%] flex flex-col gap-4 md:gap-10">
-            <div className="relative w-full h-130 sm:h-112.5 flex items-center justify-center overflow-visible">
+            <div className="relative w-full h-[440px] sm:h-112.5 flex items-center justify-center overflow-visible">
               {educationItems.map((edu, index) => (
                 <StackingCard
                   key={index}
