@@ -126,7 +126,6 @@ function TiltLayer({
       className={className}
       style={{
         ...style,
-        transform,
         transformStyle: hasTilt ? "preserve-3d" : "flat",
         transition:
           tracking && !isPaused
