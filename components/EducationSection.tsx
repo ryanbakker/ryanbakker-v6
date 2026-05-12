@@ -1,7 +1,8 @@
 "use client";
 
 import EducationCard from "./EducationCard";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 export interface EducationItem {
   title: string;
@@ -24,18 +25,12 @@ interface StackingCardProps {
   edu: EducationItem;
   index: number;
   total: number;
-  progress: number;
+  progress: MotionValue<number>;
 }
 
 function StackingCard({ edu, index, total, progress }: StackingCardProps) {
   const isFirst = index === 0;
   const isLast = index === total - 1;
-
-  // For snapping logic:
-  // Progress 0.0 -> Card 1 fully visible
-  // Progress 0.5 -> Card 2 fully visible
-  // Progress 1.0 -> Card 3 fully visible
-  // (Assuming 3 cards total)
 
   const step = total > 1 ? 1 / (total - 1) : 1;
 
@@ -48,37 +43,37 @@ function StackingCard({ edu, index, total, progress }: StackingCardProps) {
   const nextSlideEnd = nextStart + step * 0.8;
 
   // slideProgress: 0 (offscreen) to 1 (active)
-  let slideProgress = 1;
-  if (!isFirst) {
-    slideProgress = Math.min(
-      Math.max((progress - start) / (slideEnd - start), 0),
-      1,
-    );
-  }
+  const slideProgress = useTransform(progress, [start, slideEnd], [0, 1], {
+    clamp: true,
+  });
 
   // fadeProgress: 0 (visible) to 1 (faded out)
-  let fadeProgress = 0;
-  if (!isLast) {
-    fadeProgress = Math.min(
-      Math.max((progress - nextStart) / (nextSlideEnd - nextStart), 0),
-      1,
-    );
-  }
+  const fadeProgress = useTransform(
+    progress,
+    [nextStart, nextSlideEnd],
+    [0, 1],
+    { clamp: true },
+  );
 
-  // Position: Card 0 stays at 0%, others slide from 110%
-  const x = isFirst ? "0%" : `${110 * (1 - slideProgress)}%`;
+  // For isFirst, slideProgress is always 1
+  // For isLast, fadeProgress is always 0
 
-  // Opacity: stays at low (0.1) until it slides in, then fades to 0 when next card comes
-  const baseOpacity = isFirst ? 1 : 0.1 + 0.9 * slideProgress;
-  const opacity = baseOpacity * (1 - fadeProgress);
+  const x = useTransform(slideProgress, (v) =>
+    isFirst ? "0%" : `${110 * (1 - v)}%`,
+  );
+
+  const opacity = useTransform([slideProgress, fadeProgress], ([s, f]) => {
+    const base = isFirst ? 1 : 0.1 + 0.9 * (s as number);
+    const fade = isLast ? 0 : (f as number);
+    return base * (1 - fade);
+  });
 
   return (
-    <div
+    <motion.div
       style={{
-        transform: `translateX(${x})`,
+        x,
         opacity,
         zIndex: index,
-        willChange: "transform, opacity",
       }}
       className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none"
     >
@@ -99,7 +94,7 @@ function StackingCard({ edu, index, total, progress }: StackingCardProps) {
           provider={edu.title}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -119,40 +114,23 @@ function EducationSection({
   extracurricularActivities,
 }: EducationSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
   const educationItems = items || [];
-
-  useEffect(() => {
-    let rafId: number;
-
-    const updateProgress = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const totalHeight = rect.height;
-
-      const distanceScrolled = -rect.top;
-      const totalScrollable = totalHeight - windowHeight;
-
-      const p = Math.min(Math.max(distanceScrolled / totalScrollable, 0), 1);
-      setProgress(p);
-      rafId = requestAnimationFrame(updateProgress);
-    };
-
-    rafId = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(rafId);
-  }, []);
 
   return (
     <section
       ref={containerRef}
       className="relative h-[500vh] lg:h-[300vh] bg-transparent"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center pt-2 md:pt-0">
-        <div className="section-child flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-6 lg:gap-24 w-full h-full py-6 md:py-16">
+      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center">
+        <div className="section-child flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-6 lg:gap-24 w-full h-full py-2 md:py-16">
           {/* Left Side: Content */}
-          <div className="lg:max-w-[40%] pb-2 lg:pb-8 z-10 text-center lg:text-left">
+          <div className="lg:max-w-[40%] pb-2 lg:pb-8 z-10 text-left">
             <h3 className="text-xl font-bold mb-1.5 lg:mb-3 uppercase tracking-tight text-white">
               Education
             </h3>
@@ -163,7 +141,7 @@ function EducationSection({
               </p>
             )}
 
-            <div className="font-inter mt-3 md:mt-8 text-xs! md:text-base leading-5 md:leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-1.5 lg:[&_p]:mb-3 last:[&_p]:mb-0">
+            <div className="font-inter mt-3 md:mt-8 text-xs! md:text-base leading-5 md:leading-5.5 tracking-tight font-light text-white/80 [&_p]:mb-3 last:[&_p]:mb-0">
               {bodyText}
             </div>
 
@@ -189,14 +167,14 @@ function EducationSection({
 
           {/* Right Side: Animated Cards */}
           <div className="w-full lg:w-[55%] flex flex-col gap-4 md:gap-10">
-            <div className="relative w-full h-[440px] sm:h-112.5 flex items-center justify-center overflow-visible">
+            <div className="relative w-full h-110 sm:h-112.5 flex items-center justify-center overflow-visible">
               {educationItems.map((edu, index) => (
                 <StackingCard
                   key={index}
                   edu={edu}
                   index={index}
                   total={educationItems.length}
-                  progress={progress}
+                  progress={scrollYProgress}
                 />
               ))}
             </div>
@@ -204,10 +182,10 @@ function EducationSection({
             {/* Progress Bar */}
             <div className="w-full flex justify-center mb-2">
               <div className="h-0.5 w-1/4 bg-white/30 rounded-full overflow-hidden">
-                <div
+                <motion.div
                   className="h-full bg-white rounded-full"
                   style={{
-                    transform: `scaleX(${progress})`,
+                    scaleX: scrollYProgress,
                     transformOrigin: "left",
                   }}
                 />

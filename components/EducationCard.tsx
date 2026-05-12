@@ -1,5 +1,11 @@
 import Image from "next/image";
 import { getMediaUrl } from "@/lib/utils";
+import {
+  motion,
+  MotionValue,
+  useTransform,
+  useMotionValue,
+} from "framer-motion";
 
 interface EducationCardProps {
   index?: number;
@@ -20,7 +26,7 @@ interface EducationCardProps {
       }
     | null;
   provider: string;
-  progress?: number;
+  progress?: MotionValue<number> | number;
 }
 
 function EducationCard({
@@ -33,24 +39,29 @@ function EducationCard({
   provider,
   progress = 1,
 }: EducationCardProps) {
-  // Elements inside the card can animate based on its individual slide progress
-  const contentStyle = {
-    opacity: progress,
-    transform: `translateY(${(1 - progress) * 15}px)`,
-    willChange: "opacity, transform",
-    };
+  const fallbackValue = useMotionValue(
+    typeof progress === "number" ? progress : 1,
+  );
+  const motionProgress =
+    typeof progress === "number" ? fallbackValue : progress;
 
-    const logoUrl = getMediaUrl(logo);
+  const opacity = motionProgress;
+  const y = useTransform(motionProgress, (v) => `${(1 - v) * 15}px`);
+  const logoScale = useTransform(motionProgress, (v) => 0.8 + 0.2 * v);
+  const logoY = useTransform(motionProgress, (v) => `${(1 - v) * 10}px`);
 
-    return (
+  const logoUrl = getMediaUrl(logo);
 
-    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-[380px] text-[#090B23]">
+  return (
+    <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-95 text-[#090B23]">
       {/* Education Card Content */}
-      <div className="py-3 px-4 md:py-5 md:px-6" style={contentStyle}>
+      <motion.div className="py-3 px-4 md:py-5 md:px-6" style={{ opacity, y }}>
         <h4 className="text-xl md:text-2xl font-bold">{title}</h4>
         <p className="text-sm md:text-base font-semibold opacity-70">{years}</p>
 
-        <h5 className="italic text-base md:text-lg my-2 md:my-3">Focus: {focus}</h5>
+        <h5 className="italic text-base md:text-lg my-2 md:my-3">
+          Focus: {focus}
+        </h5>
 
         <h6 className="font-bold text-xs md:text-sm">Subjects</h6>
         <ul className="opacity-70 font-medium">
@@ -78,14 +89,15 @@ function EducationCard({
           </div>
           {mission}
         </div>
-      </div>
+      </motion.div>
 
       {/* Education Provider Logo - Absolute on desktop only */}
-      <div
+      <motion.div
         className="absolute right-4 bottom-4 md:right-6 md:bottom-6 pointer-events-none hidden md:block"
         style={{
-          opacity: progress,
-          transform: `scale(${0.8 + 0.2 * progress}) translateY(${(1 - progress) * 10}px)`,
+          opacity,
+          scale: logoScale,
+          y: logoY,
         }}
       >
         {logoUrl && (
@@ -97,7 +109,7 @@ function EducationCard({
             className="object-contain"
           />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

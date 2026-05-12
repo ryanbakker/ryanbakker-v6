@@ -12,7 +12,7 @@ export default function HomeClient(data?: any) {
     <>
       <HeroSection data={data} />
 
-      <AboutSection data={data} activeTechIndex={activeTechIndex} />
+      <AboutSection data={data} />
 
       <TechSection
         activeIndex={activeTechIndex}

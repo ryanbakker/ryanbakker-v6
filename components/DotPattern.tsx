@@ -196,8 +196,28 @@ export function DotPattern({
   }, [buildGrid]);
 
   useEffect(() => {
-    animationRef.current = requestAnimationFrame(draw);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!animationRef.current) {
+            animationRef.current = requestAnimationFrame(draw);
+          }
+        } else {
+          if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+            animationRef.current = null;
+          }
+        }
+      },
+      { threshold: 0 },
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     return () => {
+      observer.disconnect();
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, [draw]);
