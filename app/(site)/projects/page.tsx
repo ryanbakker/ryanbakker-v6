@@ -67,15 +67,19 @@ async function ProjectsPage({
 
           <div className="flex flex-col-reverse md:flex-row items-center gap-4 md:gap-6 relative w-full md:w-auto">
             {/* 3. Filters - 300ms delay */}
-            <div
-              className={`${animateClasses} w-full`}
-              style={{ animationDelay: "300ms", animationFillMode: "both" }}
-            >
-              <ProjectFilters
-                availableTags={availableTags}
-                activeTags={activeTags}
-              />
-            </div>
+            {projects[0] ? (
+              <div
+                className={`${animateClasses} w-full`}
+                style={{ animationDelay: "300ms", animationFillMode: "both" }}
+              >
+                <ProjectFilters
+                  availableTags={availableTags}
+                  activeTags={activeTags}
+                />
+              </div>
+            ) : (
+              ""
+            )}
 
             {/* 4. Button - 450ms delay */}
             <Link
