@@ -31,42 +31,40 @@ interface StackingCardProps {
 function StackingCard({ edu, index, total, progress }: StackingCardProps) {
   const isFirst = index === 0;
   const isLast = index === total - 1;
+const step = total > 1 ? 1 / (total - 1) : 1;
 
-  const step = total > 1 ? 1 / (total - 1) : 1;
+// This card starts sliding in relative to the previous card's slot
+const start = (index - 1) * step;
+const slideEnd = start + step * 0.7; // Finish slide earlier (at 70% of the step)
 
-  // This card starts sliding in relative to the previous card's slot
-  const start = (index - 1) * step;
-  const slideEnd = start + step * 0.8;
+// This card starts fading out when the next card starts sliding in
+const nextStart = index * step;
+const nextSlideEnd = nextStart + step * 0.7;
 
-  // This card starts fading out when the next card starts sliding in
-  const nextStart = index * step;
-  const nextSlideEnd = nextStart + step * 0.8;
+// slideProgress: 0 (offscreen) to 1 (active)
+const slideProgress = useTransform(
+  progress,
+  [start, slideEnd],
+  [0, 1],
+  { clamp: true }
+);
 
-  // slideProgress: 0 (offscreen) to 1 (active)
-  const slideProgress = useTransform(progress, [start, slideEnd], [0, 1], {
-    clamp: true,
-  });
+// fadeProgress: 0 (visible) to 1 (faded out)
+const fadeProgress = useTransform(
+  progress,
+  [nextStart, nextSlideEnd],
+  [0, 1],
+  { clamp: true }
+);
 
-  // fadeProgress: 0 (visible) to 1 (faded out)
-  const fadeProgress = useTransform(
-    progress,
-    [nextStart, nextSlideEnd],
-    [0, 1],
-    { clamp: true },
-  );
+const x = useTransform(slideProgress, (v) => isFirst ? "0%" : `${110 * (1 - v)}%`);
 
-  // For isFirst, slideProgress is always 1
-  // For isLast, fadeProgress is always 0
+const opacity = useTransform([slideProgress, fadeProgress], ([s, f]) => {
+  const slide = isFirst ? 1 : (s as number);
+  const fade = isLast ? 0 : (f as number);
+  return slide * (1 - fade);
+});
 
-  const x = useTransform(slideProgress, (v) =>
-    isFirst ? "0%" : `${110 * (1 - v)}%`,
-  );
-
-  const opacity = useTransform([slideProgress, fadeProgress], ([s, f]) => {
-    const base = isFirst ? 1 : 0.1 + 0.9 * (s as number);
-    const fade = isLast ? 0 : (f as number);
-    return base * (1 - fade);
-  });
 
   return (
     <motion.div
@@ -125,9 +123,9 @@ function EducationSection({
   return (
     <section
       ref={containerRef}
-      className="relative h-[500vh] lg:h-[300vh] bg-transparent"
+      className="relative h-[500vh] lg:h-[300vh] bg-transparent radial-blue py-12"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden radial-blue flex items-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
         <div className="section-child flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-6 lg:gap-24 w-full h-full py-2 md:py-16">
           {/* Left Side: Content */}
           <div className="lg:max-w-[40%] pb-2 lg:pb-8 z-10 text-left">

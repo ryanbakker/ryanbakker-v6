@@ -45,17 +45,22 @@ function EducationCard({
   const motionProgress =
     typeof progress === "number" ? fallbackValue : progress;
 
-  const opacity = motionProgress;
-  const y = useTransform(motionProgress, (v) => `${(1 - v) * 15}px`);
-  const logoScale = useTransform(motionProgress, (v) => 0.8 + 0.2 * v);
-  const logoY = useTransform(motionProgress, (v) => `${(1 - v) * 10}px`);
+  // Use a slightly faster ramp for internal transforms to ensure they feel "finished"
+  // by the time the card is fully in place.
+  const internalProgress = useTransform(motionProgress, [0, 0.9], [0, 1], {
+    clamp: true,
+  });
+
+  const y = useTransform(internalProgress, (v) => `${(1 - v) * 15}px`);
+  const logoScale = useTransform(internalProgress, (v) => 0.8 + 0.2 * v);
+  const logoY = useTransform(internalProgress, (v) => `${(1 - v) * 10}px`);
 
   const logoUrl = getMediaUrl(logo);
 
   return (
     <div className="radial-lavendar w-full h-full! rounded-[40px] relative drop-shadow min-h-95 text-[#090B23]">
       {/* Education Card Content */}
-      <motion.div className="py-3 px-4 md:py-5 md:px-6" style={{ opacity, y }}>
+      <motion.div className="py-3 px-4 md:py-5 md:px-6" style={{ y }}>
         <h4 className="text-xl md:text-2xl font-bold">{title}</h4>
         <p className="text-sm md:text-base font-semibold opacity-70">{years}</p>
 
@@ -95,7 +100,7 @@ function EducationCard({
       <motion.div
         className="absolute right-4 bottom-4 md:right-6 md:bottom-6 pointer-events-none hidden md:block"
         style={{
-          opacity,
+          opacity: internalProgress,
           scale: logoScale,
           y: logoY,
         }}
